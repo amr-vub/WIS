@@ -10,23 +10,32 @@
   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="org.com.wis" />
+	<context:component-scan base-package="com.org.wis" />
 	<tx:annotation-driven />
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
-		<property name="packagesToScan" value="org.ucb.data.domain" />
-	</bean>
-
+	
 	<bean name="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/UCB" />
+		<property name="url" value="jdbc:mysql://localhost:3306/WIS" />
 		<property name="username" value="root" />
-		<property name="password" value="1234" />
+		<property name="password" value="1234" />	
 	</bean>
-
+	
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" >
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <value>com.org.wis.data</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>     
+                <prop key="hibernate.hbm2ddl.auto">create</prop>	           
+            </props>
+        </property>       
+    </bean>
 	
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
