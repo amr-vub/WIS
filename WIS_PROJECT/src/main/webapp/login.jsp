@@ -6,7 +6,7 @@
 <body>
 
 <h2>login here:</h2>
-<form:form method="POST" action="login">
+<form:form method="POST" action="login.do" modelAttribute="login">
    <table>
     <tr>
         <td><form:label path="username">username</form:label></td>

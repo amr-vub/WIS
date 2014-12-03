@@ -12,26 +12,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.org.wis.data.domain.User;
 import com.org.wis.services.service.userService;
 
 
 @Controller
+@RequestMapping(value = "/login.do")
 @SessionAttributes("user-id")
 public class loginControllerImpl{
 	
 	@Autowired
-	userService us;
+	userService us;		
 	
-	public loginControllerImpl(){		
-	}
-	
-	public loginControllerImpl(userService us){
-		this.us = us;
-	}
-	
-	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Model model) throws Exception {
+	@RequestMapping(method = RequestMethod.POST)
+	public String login(@ModelAttribute("login") User usr) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
