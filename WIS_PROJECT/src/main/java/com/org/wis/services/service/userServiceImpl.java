@@ -1,15 +1,20 @@
 package com.org.wis.services.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-public class userServiceImpl {
+import com.org.wis.data.IUserManager;
 
-	private Object db;
-	
+@Service
+public class userServiceImpl implements userService{
+
 	@Autowired
-	public userServiceImpl(Object db){
-		this.db = db;
+	private IUserManager UM;
+	
+	
+	public userServiceImpl(IUserManager UM){
+		this.UM = UM;
 		
 	}
 	

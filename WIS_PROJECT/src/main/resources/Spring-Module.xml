@@ -11,7 +11,7 @@
 
 	<context:annotation-config />
 	<context:component-scan base-package="com.org.wis" />
-	<tx:annotation-driven />
+	
 	
 	<bean name="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
