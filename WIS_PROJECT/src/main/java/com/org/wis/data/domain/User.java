@@ -20,6 +20,8 @@ public class User {
 	@Column
 	String email;
 	
+	
+	
 	public int getUserId() {
 		return userId;
 	}
