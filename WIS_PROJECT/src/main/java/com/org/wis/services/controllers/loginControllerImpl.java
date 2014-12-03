@@ -17,11 +17,13 @@ import com.org.wis.services.service.userService;
 
 @Controller
 @SessionAttributes("user-id")
-public class loginControllerImpl implements loginController {
+public class loginControllerImpl{
 	
 	@Autowired
 	userService us;
 	
+	public loginControllerImpl(){		
+	}
 	
 	public loginControllerImpl(userService us){
 		this.us = us;

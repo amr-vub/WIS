@@ -13,6 +13,10 @@ public class UserManager implements IUserManager{
 	@Autowired
 	SessionFactory sessionFactory;
 	
+	public UserManager() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public User getUserById(int userId) {
 		
 		return (User) getSessionFactory().getCurrentSession().get(User.class, userId);

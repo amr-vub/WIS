@@ -13,6 +13,9 @@ public class userServiceImpl implements userService{
 	private IUserManager UM;
 	
 	
+	public userServiceImpl(){	
+	}
+	
 	public userServiceImpl(IUserManager UM){
 		this.UM = UM;
 		
