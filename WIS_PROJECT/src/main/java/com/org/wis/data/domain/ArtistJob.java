@@ -1,9 +1,18 @@
 package com.org.wis.data.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ArtistJob {
@@ -28,6 +37,53 @@ public class ArtistJob {
 	
 	@Column
 	int rankingValue;
+	
+	@ManyToOne @JoinColumn(nullable=false)	
+	User artUser;
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "rankArtistJob")
+	List<Ranking> rankings = new ArrayList<Ranking>(); 
+	
+	@ManyToOne @JoinColumn(nullable=false)	
+	Location artLocation;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="arts_Event")
+	List<Event> events = new ArrayList<Event>();
+	
+	
+	
+	public User getArtUser() {
+		return artUser;
+	}
+
+	public void setArtUser(User artUser) {
+		this.artUser = artUser;
+	}
+
+	public List<Ranking> getRankings() {
+		return rankings;
+	}
+
+	public void setRankings(List<Ranking> rankings) {
+		this.rankings = rankings;
+	}
+
+	public Location getArtLocation() {
+		return artLocation;
+	}
+
+	public void setArtLocation(Location artLocation) {
+		this.artLocation = artLocation;
+	}
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
 
 	public int getArtistJobID() {
 		return artistJobID;
