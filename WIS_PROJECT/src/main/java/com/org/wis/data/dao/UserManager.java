@@ -1,4 +1,4 @@
-package com.org.wis.data;
+package com.org.wis.data.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class UserManager implements IUserManager{
 		
 		getSessionFactory().getCurrentSession().save(user);		
 	}
-
+	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
@@ -35,6 +35,14 @@ public class UserManager implements IUserManager{
 		this.sessionFactory = sessionFactory;
 	}
 
-	
+	public void deleteUser(User user) {
+		getSessionFactory().getCurrentSession().delete(user);
+		
+	}
+
+	public void updateUser(User user) {
+		getSessionFactory().getCurrentSession().update(user);
+		
+	}
 	
 }
