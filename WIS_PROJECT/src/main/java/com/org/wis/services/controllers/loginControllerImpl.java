@@ -1,5 +1,7 @@
 package com.org.wis.services.controllers;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
@@ -19,21 +22,43 @@ import com.org.wis.services.service.userService;
  * 
  */
 
+@SessionAttributes("userid")
 @Controller
-@RequestMapping(value = "/login.do")
-@SessionAttributes("user-id")
 public class loginControllerImpl{
 	
 	@Autowired
-	userService us;		
+	userService userS;		
 	
-	@RequestMapping(method = RequestMethod.POST)
-	public String login(@ModelAttribute("login") User usr) throws Exception {
-		// TODO Auto-generated method stub
-		return "success";
+	
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public String login(Model model) throws Exception {
+		// more elegant: @ModelAttribute("myuser") UserAuthentication userA
+		
+		Map<String, Object> map  = model.asMap();
+		UserAuthentication userA = (UserAuthentication)map.get("myuser");
+		//the userAuthentication should have email instead of username
+		
+		User u = userS.authenticateUser(userA.getEmail(), userA.getPassword());
+		
+		if(u !=null){
+			//this model attribute (int with UserId) is automatically written to Session 
+			//object because of annotation @SessionAttributes("userid"). 
+			//User id is stored in session to identify user when surfing on website
+			model.addAttribute("userid", u.getUserId()); // works with int ?  
+			//e.g. goto link /{u.getUserId()} to show users personal page
+			return "success";
+		}else{
+		return "failed";
+		};
 	}
 	
-	@RequestMapping( method = RequestMethod.GET)
+	@RequestMapping(value = "/logout.do")
+	public String logout(SessionStatus status){
+		status.setComplete();	//clears attributes from session
+		return "logout";
+	}
+	
+	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String listPersons(Model model) {
 		/*	
 		 * here you get the model object "myuser" (which is specified by the 'modelAttribute'

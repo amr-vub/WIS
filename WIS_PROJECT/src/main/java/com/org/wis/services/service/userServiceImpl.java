@@ -5,29 +5,33 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.org.wis.data.dao.IUserManager;
+import com.org.wis.data.domain.User;
+import com.org.wis.data.domain.UserAuthentication;
 
 @Service
 public class userServiceImpl implements userService{
 
 	@Autowired
-	private IUserManager UM;
+	private IUserManager userM;
 	
 	
 	public userServiceImpl(){	
 	}
 	
-	public userServiceImpl(IUserManager UM){
-		this.UM = UM;
+	public userServiceImpl(IUserManager userM){
+		this.userM = userM;
 		
 	}
 	
 	@Transactional(readOnly = true)
-	public boolean authenticateUser(String user,String password){
+	public User authenticateUser(String email,String password){
 		
-		if( password=="1234"/*check db*/){
-			return true;
+		User u = userM.getUserByEmail(email);
+		UserAuthentication uA = u.getUserAuthentication();
+		if( uA.getPassword() == password){
+			return u;
 		}else{
-			return false;	
+			return null;	
 		}
 	}
 }
