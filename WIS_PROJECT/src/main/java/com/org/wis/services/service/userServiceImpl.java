@@ -34,4 +34,20 @@ public class userServiceImpl implements userService{
 			return null;	
 		}
 	}
+
+	@Transactional
+	public boolean addUser(User user) {
+		if(userM.getUserByEmail(user.getEmail()) == null){
+			userM.saveUser(user);
+			return true;
+		}else return false;
+	}
+
+	@Transactional
+	public void deleteUser(int userid) {
+		userM.deleteUser(userM.getUserById(userid));
+		
+	}
+	
+	
 }

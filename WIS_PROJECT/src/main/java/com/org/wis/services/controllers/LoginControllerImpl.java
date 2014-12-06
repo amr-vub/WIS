@@ -24,7 +24,7 @@ import com.org.wis.services.service.userService;
 
 @SessionAttributes("userid")
 @Controller
-public class loginControllerImpl{
+public class LoginControllerImpl{
 	
 	@Autowired
 	userService userS;		
