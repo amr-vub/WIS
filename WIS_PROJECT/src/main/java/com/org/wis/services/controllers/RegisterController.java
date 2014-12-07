@@ -12,7 +12,7 @@ import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
 import com.org.wis.services.service.userService;
 
-public class RegisterControllerImpl {
+public class RegisterController {
 
 	@Autowired
 	userService userS;		
@@ -23,11 +23,15 @@ public class RegisterControllerImpl {
 		Map<String, Object> map  = model.asMap();
 		User user = (User)map.get("user");
 		
-		//Because of @ResponseBody the Strings should be returned directly (conversion done by spring) json?
-		// probably needs
-		//   -- jackson-annotations-x.x.x.jar
-	    // -- jackson-core-x.x.x.jar
-	    // -- jackson-databind-x.x.x.jar
+		/*Because of @ResponseBody the Strings should be returned directly (conversion done by spring) json?
+		 probably needs
+		 
+		<dependency>  
+		 <groupId>org.codehaus.jackson</groupId>  
+		 <artifactId>jackson-mapper-asl</artifactId>  
+		 <version>1.9.10</version>  
+		</dependency>
+		*/
 		if(userS.addUser(user)){
 			return "new user account created";
 		}else{

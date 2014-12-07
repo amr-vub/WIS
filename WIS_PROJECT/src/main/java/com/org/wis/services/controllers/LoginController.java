@@ -24,7 +24,7 @@ import com.org.wis.services.service.userService;
 
 @SessionAttributes("userid")
 @Controller
-public class LoginControllerImpl{
+public class LoginController{
 	
 	@Autowired
 	userService userS;		
@@ -48,8 +48,8 @@ public class LoginControllerImpl{
 			//e.g. goto link /{u.getUserId()} to show users personal page
 			return "success";
 		}else{
-		return "failed";
-		};
+			return "failed";
+		}
 	}
 	
 	@RequestMapping(value = "/logout.do")
