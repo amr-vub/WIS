@@ -1,4 +1,5 @@
-<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 <!-----Meta----->
@@ -9,10 +10,6 @@
     <meta name="description" content="ArtScout" />
     <meta name="keywords" content="login form, psd, html, css3, jquery, tutorial" />
     <meta name="author" content="Dzyngiri" />
-
-<!--Stylesheets-->
-<link href="css/globalstyle.css" rel="stylesheet" type="text/css" />
-<link href="css/loginstyle.css" rel="stylesheet" type="text/css" />
 
 <!--Scripts-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -48,7 +45,7 @@ $(document).ready(function() {
     <div class="pass-icon"></div>
 
 	<!--Login form-->
-	<form:form name="login-form" class="login-form panel" action="/login.do" method="POST" modelattribute="myuser">
+	<form:form name="login-form" class="login-form panel" action="/login.do" method="POST" modelAttribute="myuser">
 
 		<div class="header">
     		<h1>Welcome</h1>
@@ -56,8 +53,8 @@ $(document).ready(function() {
     	</div>
     
 		<div class="content">
-			<form:input name="username" type="email" class="input username" placeholder="E-mail address" spellcheck="false"/>
-    		<form:input name="password" type="password" class="input password" placeholder="Password" spellcheck="false"/>
+			<form:input path ="username" name="username" type="email" class="input username" placeholder="E-mail address" spellcheck="false"/>
+    		<form:input path ="password" name="password" type="password" class="input password" placeholder="Password" spellcheck="false"/>
     	</div>
     
     	<div class="footer">
