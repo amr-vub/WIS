@@ -1,9 +1,18 @@
 package com.org.wis.data.dao;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-public class BookerJob implements IBookerJob{
+import com.org.wis.data.domain.ArtistJob;
+import com.org.wis.data.domain.BookerJob;
 
+@Repository
+public class BookerJobManager implements IBookerJobManager{
+
+	@Autowired
 	SessionFactory sessionFactory;
 	
 	public BookerJob getBookerJobById(int BookerJobId) {
@@ -22,6 +31,15 @@ public class BookerJob implements IBookerJob{
 		getSessionFactory().getCurrentSession().delete(bookerJob);
 	}
 
+	public List<BookerJob> getBookerByLabel(String label, int nbrResults)
+	{
+		List<BookerJob> ret = (List<BookerJob>) getSessionFactory().getCurrentSession()
+				.createQuery("SELECT u FROM BookerJob u WHERE u.label LIKE :label"
+						+ " LIMIT :nbrResults").setParameter(":label", label)
+						.setParameter(":nbrResults", nbrResults);
+		return ret;
+	}
+	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}

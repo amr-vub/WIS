@@ -6,6 +6,8 @@ public interface IUserManager {
 
 	User getUserById(int userId);
 	
+	User getUserByEmail(String email);
+	
 	void saveUser(User user);
 	
 	void deleteUser(User user);

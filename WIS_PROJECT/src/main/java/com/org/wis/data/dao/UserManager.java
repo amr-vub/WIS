@@ -1,5 +1,7 @@
 package com.org.wis.data.dao;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,6 +24,15 @@ public class UserManager implements IUserManager{
 		return (User) getSessionFactory().getCurrentSession().get(User.class, userId);
 	}
 
+	public User getUserByEmail(String email) {
+		
+		List<User> lis = 
+				(List<User>) getSessionFactory().getCurrentSession().
+				createQuery("SELECT u FROM USER u WHERE u.email :email");
+		if(lis!=null)
+			return lis.get(0);
+		return null;
+	}
 	public void saveUser(User user) {
 		
 		getSessionFactory().getCurrentSession().save(user);		

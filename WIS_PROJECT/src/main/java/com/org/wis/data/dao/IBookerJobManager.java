@@ -1,6 +1,10 @@
 package com.org.wis.data.dao;
 
-public interface IBookerJob {
+import java.util.List;
+
+import com.org.wis.data.domain.BookerJob;
+
+public interface IBookerJobManager {
 
 	BookerJob getBookerJobById(int BookerJobId);
 	
@@ -9,4 +13,6 @@ public interface IBookerJob {
 	void updateBookerJob(BookerJob bookerJob);
 	
 	void deleteBookerJob(BookerJob bookerJob);
+	
+	public List<BookerJob> getBookerByLabel(String label, int nbrResults);
 }

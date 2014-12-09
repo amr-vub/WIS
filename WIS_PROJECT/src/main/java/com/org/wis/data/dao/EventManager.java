@@ -2,9 +2,11 @@ package com.org.wis.data.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.org.wis.data.domain.Event;
 
+@Repository
 public class EventManager implements IEventManager{
 
 	@Autowired

@@ -1,5 +1,7 @@
 package com.org.wis.data.dao;
 
+import java.util.List;
+
 import com.org.wis.data.domain.ArtistJob;
 
 public interface IArtistJobManager {
@@ -11,4 +13,6 @@ public interface IArtistJobManager {
 	void updateArtistJob(ArtistJob artistJob);
 	
 	void deleteArtistJob(ArtistJob artistJob);
+	
+	public List<ArtistJob> getArtistByAlias(String alias, int nbrResults);
 }

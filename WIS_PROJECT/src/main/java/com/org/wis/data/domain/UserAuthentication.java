@@ -31,9 +31,11 @@ public class UserAuthentication {
 	@Column @Temporal(value = TemporalType.DATE)
 	Date lasetLogin;
 	
+	@Column
+	String email;
+	
 	@OneToOne @JoinColumn(nullable=false)
-	User user;	
-
+	User user;		
 	
 	
 	public User getUser() {
@@ -74,6 +76,14 @@ public class UserAuthentication {
 
 	public void setLasetLogin(Date lasetLogin) {
 		this.lasetLogin = lasetLogin;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 		
 }
