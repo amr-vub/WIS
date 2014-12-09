@@ -1,4 +1,4 @@
-  <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
@@ -13,6 +13,10 @@
 
 <!--Scripts-->
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+<!--Stylesheets-->
+<link href="css/globalstyle.css" rel="stylesheet" type="text/css" />
+<link href="css/loginstyle.css" rel="stylesheet" type="text/css" />
 
 <!--Sliding icons-->
 <script type="text/javascript">
