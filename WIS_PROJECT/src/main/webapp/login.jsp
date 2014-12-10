@@ -49,7 +49,7 @@ $(document).ready(function() {
     <div class="pass-icon"></div>
 
 	<!--Login form-->
-	<form:form name="login-form" class="login-form panel" action="/login.do" method="POST" modelAttribute="myuser">
+	<form:form name="login-form" class="login-form panel" action="login.do" method="POST" modelAttribute="myuser">
 
 		<div class="header">
     		<h1>Welcome</h1>
@@ -57,7 +57,7 @@ $(document).ready(function() {
     	</div>
     
 		<div class="content">
-			<form:input path ="username" name="username" type="email" class="input username" placeholder="E-mail address" spellcheck="false"/>
+			<form:input path ="email" name="email" type="email" class="input username" placeholder="E-mail address" spellcheck="false"/>
     		<form:input path ="password" name="password" type="password" class="input password" placeholder="Password" spellcheck="false"/>
     	</div>
     

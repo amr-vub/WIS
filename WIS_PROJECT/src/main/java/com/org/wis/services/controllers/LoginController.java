@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -31,11 +32,12 @@ public class LoginController{
 	
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(Model model) throws Exception {
+
+	public String login( @ModelAttribute("myuser") UserAuthentication userA) throws Exception {
 		// more elegant: @ModelAttribute("myuser") UserAuthentication userA
 		
-		Map<String, Object> map  = model.asMap();
-		UserAuthentication userA = (UserAuthentication)map.get("myuser");
+		//Map<String, Object> map  = model.asMap();
+		//UserAuthentication userA = (UserAuthentication)map.get("myuser");
 		//the userAuthentication should have email instead of username
 		
 		User u = userS.authenticateUser(userA.getEmail(), userA.getPassword());
@@ -44,11 +46,11 @@ public class LoginController{
 			//this model attribute (int with UserId) is automatically written to Session 
 			//object because of annotation @SessionAttributes("userid"). 
 			//User id is stored in session to identify user when surfing on website
-			model.addAttribute("userid", u.getUserId()); // works with int ?  
-			//e.g. goto link /{u.getUserId()} to show users personal page
+			//model.addAttribute("userid", u.getUserId()); // works with int ?  
+			//e.g. goto link /{u.getUserId()} to show users personal page			
 			return "success";
 		}else{
-			return "failed";
+			return "login";
 		}
 	}
 	

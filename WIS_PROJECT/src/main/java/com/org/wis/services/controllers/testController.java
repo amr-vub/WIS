@@ -22,10 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.org.wis.data.domain.User;
 
 @Controller
-public class testController {
+public class testController {	
 	
-	
-	@RequestMapping(value = "/test1")
+	@RequestMapping(value = "/test1.do")
 	@ResponseBody
 	public User test1(){
 		
@@ -35,7 +34,7 @@ public class testController {
 		return u;
 	}
 	
-	@RequestMapping(value = "/test2")
+	@RequestMapping(value = "/test2.do")
 	@ResponseBody
 	public User[] test2(){
 		
@@ -52,7 +51,7 @@ public class testController {
 		return users;
 	}
 	
-	@RequestMapping(value = "/test3")
+	@RequestMapping(value = "/test3.do")
 	@ResponseBody
 	public String test3(){
 		return "this is a String";

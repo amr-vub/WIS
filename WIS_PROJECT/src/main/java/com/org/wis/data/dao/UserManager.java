@@ -27,9 +27,10 @@ public class UserManager implements IUserManager{
 	public User getUserByEmail(String email) {
 		
 		List<User> lis = 
-				(List<User>) getSessionFactory().getCurrentSession().
-				createQuery("SELECT u FROM USER u WHERE u.email :email");
-		if(lis!=null)
+				getSessionFactory().getCurrentSession().
+				createQuery("SELECT u FROM User u WHERE u.email LIKE :email")
+				.setParameter("email", email).list();
+		if(!lis.isEmpty())
 			return lis.get(0);
 		return null;
 	}
