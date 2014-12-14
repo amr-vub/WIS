@@ -23,27 +23,18 @@ public class EditUserController {
 	userService userS;		
 	
 	@RequestMapping(value = "/edituser.do", method = RequestMethod.POST)
-	public String setUserDetails(@ModelAttribute("user") User updatedUser, @ModelAttribute("id") String id) throws Exception {
-		User dbUser = userS.getUserByEmail(id);
-		//System.out.println("email: id:" + id +" updated: email:" + updatedUser.getEmail() + " auth" + updatedUser.getUserAuthentication().getEmail());
-		dbUser.getUserAuthentication().setEmail(updatedUser.getEmail());
-		dbUser.setUserName(updatedUser.getUserName());
-		dbUser.setGSM(updatedUser.getGSM());
-		dbUser.setEmail(updatedUser.getEmail());
-		
-		// Then we should commit the update to the DB
-		userS.updateUser(dbUser);
+	public String setUserDetails(@ModelAttribute("user") User updatedUser, @ModelAttribute("id") int id) throws Exception {
+		updatedUser.setUserId(id);
+		userS.updateUser(updatedUser);
 		
 		return "redirect:/search.do";
 	}
 	
 	@RequestMapping(value = "/edituser.do", method = RequestMethod.GET)
-	public String getUserDetails(Model model, @ModelAttribute("id") String id) {
+	public String getUserDetails(Model model, @ModelAttribute("id") int id) {
 		
-		if(id !=null){
-			//user logged in
-			User u = userS.getUserByEmail(id);
-			//System.out.println("id from session: " + id + "found user from db:" + u.getEmail());
+		if(id > 0){			//user logged in
+			User u = userS.getUserById(id);
 			model.addAttribute("user", u);
 			return "edituser";
 		}else return "redirect:/login.do";

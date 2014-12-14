@@ -23,12 +23,8 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("user") User u) throws Exception {
-		System.out.println(u.getEmail() + u.getGSM() + u.getUserId() + u.getUserName() + u.getUserAuthentication().getEmail() + u.getUserAuthentication().getPassword());
-		u.getUserAuthentication().setUser(u);
-		
-		
-		if(!userS.addUser(u)) return "register";
-		else return "redirect:/search.do";
+		if(userS.addUser(u)) return "redirect:/login.do";
+		return "register";
 	}
 	
 	@RequestMapping(value = "/register.do", method = RequestMethod.GET)

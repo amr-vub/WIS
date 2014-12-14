@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.org.wis.data.dao.IUserAuthentcationManager;
 import com.org.wis.data.dao.IUserManager;
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
@@ -13,6 +14,9 @@ public class userServiceImpl implements userService{
 
 	@Autowired
 	private IUserManager userM;
+	
+	@Autowired
+	private IUserAuthentcationManager userAM;
 	
 	
 	public userServiceImpl(){	
@@ -26,21 +30,13 @@ public class userServiceImpl implements userService{
 	
 	
 	@Transactional(readOnly = true)
-	public User authenticateUser(String email,String password){
-		UserAuthentication uA;
-		User u = userM.getUserByEmail(email);
-		if(u != null){
-			uA = u.getUserAuthentication();
-			if(uA != null){
-				if( uA.getPassword().equals(password)){
-					return u;
-				}
-			}
+	public User authenticateUser(UserAuthentication ua){
+		int uid = userAM.userExist(ua.getUsername(), ua.getPassword());
+		if(uid > -1){
+			return userM.getUserById(uid);
+		}else {
+			return null;
 		}
-		
-		
-		return null;	
-		
 	}
 	
 	@Transactional(readOnly = true)
@@ -51,9 +47,14 @@ public class userServiceImpl implements userService{
 	}
 	
 	@Transactional
-	public void updateUser(User user){
+	public void updateUser(User updatedUser){
 		
-		userM.updateUser(user);
+		User dbUser = userM.getUserById(updatedUser.getUserId());
+		dbUser.setEmail(updatedUser.getEmail());
+		dbUser.setGSM(updatedUser.getGSM());
+		dbUser.getUserAuthentication().setUsername(updatedUser.getUserAuthentication().getUsername());
+		dbUser.getUserAuthentication().setPassword(updatedUser.getUserAuthentication().getPassword());
+		userM.updateUser(dbUser);
 	
 	}
 	
@@ -67,12 +68,14 @@ public class userServiceImpl implements userService{
 	@Transactional
 	public boolean addUser(User user) {
 		
-		if(userM.getUserByEmail(user.getEmail()) == null){
+		if(userM.getUserByEmail(user.getEmail()) == null)
+		{
+			user.getUserAuthentication().setUser(user);
 			userM.saveUser(user);
 			return true;
-		}else return false;
-	
-
+		}
+		return false;
+		
 	}
 
 	@Transactional

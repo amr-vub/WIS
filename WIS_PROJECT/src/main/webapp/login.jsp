@@ -57,7 +57,7 @@ $(document).ready(function() {
     	</div>
     
 		<div class="content">
-			<form:input path ="email" name="email" type="email" class="input username" placeholder="E-mail address" spellcheck="false"/>
+			<form:input path ="Username" name="Username" type="text" class="input Username" placeholder="Username" spellcheck="false"/>
     		<form:input path ="password" name="password" type="password" class="input password" placeholder="Password" spellcheck="false"/>
     	</div>
     

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.org.wis.data.domain.ArtistJob;
+import com.org.wis.data.domain.Location;
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
 import com.org.wis.services.service.ArtistJobService;
@@ -32,6 +33,7 @@ public class EditArtistJobController {
 	
 	@RequestMapping(value = "/artistjob/add.do", method = RequestMethod.POST)
 	public String saveArtistJobDetails(@ModelAttribute("artistjob") ArtistJob newAJ, @ModelAttribute("id") String id) throws Exception {
+		//System.out.println("location" + newAJ.getArtLocation().getArtistJobs().size());
 		
 		artistS.saveArtistJob(newAJ);
 		
@@ -40,9 +42,9 @@ public class EditArtistJobController {
 	
 	@RequestMapping(value = "/artistjob/add.do", method = RequestMethod.GET)
 	public String getNewArtistJob(Model model, @ModelAttribute("id") String id) {
-		System.out.println("addartistjob");
 		if(id !=null){		//user logged in
-			model.addAttribute("artistjob", new ArtistJob());
+			ArtistJob aj = new ArtistJob();
+			model.addAttribute("artistjob", aj);
 			return "addartistjob";
 		}else return "redirect:/login.do";
 		
@@ -50,8 +52,6 @@ public class EditArtistJobController {
 	
 	@RequestMapping(value = "/artistjob/{artistjobid}/edit.do", method = RequestMethod.GET)
 	public String getArtistJobDetails(Model model, @ModelAttribute("id") String id, @PathVariable int artistjobid) {
-		
-		
 		
 		if(id !=null){		//user logged in
 			ArtistJob aj = artistS.getArtistJobById(artistjobid);
@@ -61,15 +61,13 @@ public class EditArtistJobController {
 			}else return "redirect:/search.do";
 		}else return "redirect:/login.do";
 		
-		
-		
-
-		
 	}
 	
 	@RequestMapping(value = "/artistjob/{artistjobid}/edit.do", method = RequestMethod.POST)
-	public String updateArtistJobDetails(@ModelAttribute("artistjob") ArtistJob updatedAJ, @ModelAttribute("id") String id) throws Exception {
-		
+	public String updateArtistJobDetails(@ModelAttribute("artistjob") ArtistJob updatedAJ, @ModelAttribute("id") String id, @PathVariable int artistjobid) throws Exception {
+		System.out.println("artistjobid" + updatedAJ.getArtistJobID());
+		updatedAJ.setArtistJobID(artistjobid);
+		System.out.println("artistjobid" + updatedAJ.getArtistJobID());
 		artistS.updateArtistJob(updatedAJ);
 		
 		return "redirect:/search.do";

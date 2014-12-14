@@ -11,7 +11,7 @@
 	 <a href="/WIS_PROJECT/register.do">Register</a> 
 	 <a href="/WIS_PROJECT/edituser.do">Edit User Profile</a> 
 	 <a href="/WIS_PROJECT/artistjob/add.do">Add Artist Job</a> 
-	 <a href="/WIS_PROJECT/artistjob/0/edit.do">Edit Artist Job 0</a> 
+	 <a href="/WIS_PROJECT/artistjob/1/edit.do">Edit Artist Job 1</a> 
 	 
 
     <h2>Search Artist</h2>

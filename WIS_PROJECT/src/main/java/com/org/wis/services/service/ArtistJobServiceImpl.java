@@ -24,19 +24,23 @@ public class ArtistJobServiceImpl implements ArtistJobService {
 
 	@Transactional(readOnly = true)
 	public ArtistJob getArtistJobById(int artistJobID) {
-		return artJobM.getArtistJobById(artistJobID);
+		ArtistJob aj =  artJobM.getArtistJobById(artistJobID);
+		return aj;
 	}
 
 	@Transactional
 	public void saveArtistJob(ArtistJob artistJob) {
+		List<ArtistJob> ajs = artistJob.getArtLocation().getArtistJobs();
+		ajs.add(artistJob);
+		
 		artJobM.saveArtistJob(artistJob);
 		
 	}
 
 	@Transactional
 	public void updateArtistJob(ArtistJob updatedAJ) {
-		
 		ArtistJob dbAJ = artJobM.getArtistJobById(updatedAJ.getArtistJobID());
+		System.out.println("ARTISTJOB ID." + updatedAJ.getArtistJobID());
 		dbAJ.setAliase(updatedAJ.getAliase());
 		dbAJ.setArtFrom(updatedAJ.getArtFrom());
 		dbAJ.setDescription(updatedAJ.getDescription());

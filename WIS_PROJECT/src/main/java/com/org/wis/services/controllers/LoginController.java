@@ -35,13 +35,11 @@ public class LoginController{
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public String login( @ModelAttribute("myuser") UserAuthentication userA, Model model) throws Exception {
 
+		User u = userS.authenticateUser(userA);
 		
-		User u = userS.authenticateUser(userA.getEmail(), userA.getPassword());
-		//why is u == null 
-		
-		if(true /*u != null*/){
+		if(u != null){
 			//user login valid -> write id in session
-			model.addAttribute("id", userA.getEmail());
+			model.addAttribute("id", u.getUserId());
 			//System.out.println(userA.getEmail() + userA.getPassword() + "   " + u);
 			return "redirect:/search.do";
 		}else{

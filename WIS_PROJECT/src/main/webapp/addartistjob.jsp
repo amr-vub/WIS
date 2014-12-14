@@ -62,6 +62,7 @@ $(document).ready(function() {
 			<form:input path ="PersonalWebSite" name="PersonalWebSite" type="email" class="input PersonalWebSite" placeholder="PersonalWebSite" spellcheck="false"/>
     		<form:input path ="SondCloudLink" name="SondCloudLink" type="text" class="input SondCloudLink" placeholder="SondCloudLink" spellcheck="false"/>
     		<form:input path ="Description" name="Description" type="text" class="input Description" placeholder="Description" spellcheck="false"/>
+    		<form:input path ="ArtLocation.Coordenate" name="Coordenate" type="text" class="input Coordenate" placeholder="Coordenate" spellcheck="false"/>
     	</div>
     
     	<div class="footer">
