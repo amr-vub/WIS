@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.org.wis.data.dao.ArtistJobManager;
 import com.org.wis.data.dao.BookerJobManager;
@@ -28,19 +29,20 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	//searching for artists and bookers and get back the first 'nbrResults' results from db
+	@Transactional
 	public List<ArtistJob> searchArtist(String alias, int nbrResults) {
 	
-		//should this return only the artistjob or the user object?
 		List<ArtistJob> m = artJobM.getArtistByAlias(alias, nbrResults);	
 		
-		return null;
+		return m;
 	}
 
+	@Transactional
 	public List<BookerJob> searchBooker(String name, int nbrResults) {
 		
-		//what is search field.. name?
 		return bookJobM.getBookerByLabel(name,nbrResults);
 	}
+
 
 	public IArtistJobManager getArtJobM() {
 		return artJobM;
@@ -57,6 +59,8 @@ public class SearchServiceImpl implements SearchService {
 	public void setBookJobM(IBookerJobManager bookJobM) {
 		this.bookJobM = bookJobM;
 	}
+	
+	
 	
 	//TODO
 	//maybe search functionality to show artists within a radius of a place(lang,lat)

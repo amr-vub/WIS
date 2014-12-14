@@ -19,6 +19,7 @@ import com.org.wis.data.domain.ArtistJob;
 import com.org.wis.data.domain.BookerJob;
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
+import com.org.wis.services.service.ArtistJobService;
 import com.org.wis.services.service.SearchService;
 import com.org.wis.services.service.userService;
 
@@ -32,6 +33,9 @@ public class SearchController {
 	@Autowired
 	SearchService searchS;
 	
+	@Autowired
+	ArtistJobService artistS;
+	
 	ObjectMapper mapper;
 	
 	public SearchController(){
@@ -43,13 +47,23 @@ public class SearchController {
 	public @ResponseBody String searchArtist(@PathVariable String searchterm, @PathVariable int nbrResults) throws Exception{
 		
 		System.out.println("searchterm:" + searchterm + nbrResults );
-		//List<ArtistJob> artistList = searchS.searchArtist(alias, nbrResults>0?nbrResults:0);
+		List<ArtistJob> artistList = new ArrayList<ArtistJob>();// searchS.searchArtist(searchterm, nbrResults);
 		
-		List<ArtistJob>artistList = new ArrayList<ArtistJob>();
+		
 		ArtistJob a1 = new ArtistJob();
-		a1.setAliase("max");
+		a1.setAliase("max1");
 		a1.setArtFrom("music");
 		artistList.add(a1);
+		ArtistJob a2 = new ArtistJob();
+		a2.setAliase("max2");
+		a2.setArtFrom("music");
+		artistList.add(a2);
+		ArtistJob a3 = new ArtistJob();
+		a3.setAliase("max3");
+		a3.setArtFrom("music");
+		artistList.add(a3);
+		
+		
 		return mapper.writeValueAsString(artistList);
 	}
 	
@@ -60,10 +74,13 @@ public class SearchController {
 		//List<BookerJob> bookerList = searchS.searchBooker(searchterm, nbrResults>0?nbrResults:0);
 		
 		List<BookerJob>bookerList = new ArrayList<BookerJob>();
-		BookerJob a1 = new BookerJob();
-		a1.setLabel("max");
-		a1.setDescription("music");
-		bookerList.add(a1);
+		
+		for(int i=0; i<4; i++){
+			BookerJob a1 = new BookerJob();
+			a1.setLabel("max" + i);
+			a1.setDescription("music");
+			bookerList.add(a1);
+		}
 		return mapper.writeValueAsString(bookerList);
 	}
 	
@@ -74,4 +91,13 @@ public class SearchController {
 		
 		return "search";
 	}	
+	
+	@RequestMapping(value = "/search/rank/{artistJobId}/{artistJobRanking}.do")
+	public @ResponseBody String addRanking(@ModelAttribute("id") int uid, @PathVariable int artistJobId, @PathVariable int artistJobRanking) throws Exception {
+		System.out.println("!!!");
+		artistS.addRanking(artistJobId, artistJobRanking, uid);
+		String s = String.valueOf(artistS.getRanking(artistJobId));
+		System.out.println("the new ranking is " +s);
+		return mapper.writeValueAsString(artistS.getRanking(artistJobId));
+	}
 }

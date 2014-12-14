@@ -18,5 +18,9 @@ ArtistJob getArtistJobById(int artistJobID);
 	
 	void deleteArtistJob(int artistJobID);
 	
+	void addRanking(int artistJobID, int rankValue, int uid);
+	
+	int getRanking(int artistJobId);
+	
 	public List<ArtistJob> getArtistByAlias(String alias, int nbrResults);
 }

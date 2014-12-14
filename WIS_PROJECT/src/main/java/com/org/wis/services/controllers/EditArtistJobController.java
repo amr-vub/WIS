@@ -1,5 +1,6 @@
 package com.org.wis.services.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.org.wis.data.domain.Location;
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
 import com.org.wis.services.service.ArtistJobService;
+import com.org.wis.services.service.LocationService;
 import com.org.wis.services.service.userService;
 
 @SessionAttributes("id")
@@ -29,12 +31,20 @@ public class EditArtistJobController {
 	@Autowired
 	ArtistJobService artistS;
 	
+	@Autowired
+	LocationService locationS;
 	
 	
 	@RequestMapping(value = "/artistjob/add.do", method = RequestMethod.POST)
-	public String saveArtistJobDetails(@ModelAttribute("artistjob") ArtistJob newAJ, @ModelAttribute("id") String id) throws Exception {
-		//System.out.println("location" + newAJ.getArtLocation().getArtistJobs().size());
-		
+	public String saveArtistJobDetails(@ModelAttribute("artistjob") ArtistJob newAJ, @ModelAttribute("id") int id) throws Exception {
+		System.out.println("location" + newAJ.getArtLocation().getLocationId());
+		User u = userS.getUserById(id);
+		u.getArtistJob().add(newAJ);
+		newAJ.setArtUser(u);
+		Location l = newAJ.getArtLocation();
+		l.getArtistJobs().add(newAJ);
+		userS.updateUser(u);
+		locationS.saveLocation(l);
 		artistS.saveArtistJob(newAJ);
 		
 		return "redirect:/search.do";
@@ -44,6 +54,10 @@ public class EditArtistJobController {
 	public String getNewArtistJob(Model model, @ModelAttribute("id") String id) {
 		if(id !=null){		//user logged in
 			ArtistJob aj = new ArtistJob();
+			Location l = new Location();
+			l.getArtistJobs().add(aj);
+			aj.setArtLocation(l);
+			System.out.println("location of new artistjob"  + aj.getArtLocation()+ "\n artistjob of location:"  + l.getArtistJobs().get(0));
 			model.addAttribute("artistjob", aj);
 			return "addartistjob";
 		}else return "redirect:/login.do";

@@ -32,7 +32,7 @@ public class LoginController{
 	userService userS;		
 	
 	
-	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/login.do", params="login" ,method = RequestMethod.POST)
 	public String login( @ModelAttribute("myuser") UserAuthentication userA, Model model) throws Exception {
 
 		User u = userS.authenticateUser(userA);
@@ -50,7 +50,7 @@ public class LoginController{
 	@RequestMapping(value = "/logout.do")
 	public String logout(SessionStatus status){
 		status.setComplete();	//clears attributes from session
-		return "logout";
+		return "redirect:/login.do";
 	}
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
@@ -59,6 +59,12 @@ public class LoginController{
 		model.addAttribute("myuser", new UserAuthentication());	
 		
 		return "login";
+	}
+	
+	@RequestMapping(value = "/login.do" , params="register")
+	public String register(){
+		
+		return "redirect:/register.do";
 	}
 	
 	

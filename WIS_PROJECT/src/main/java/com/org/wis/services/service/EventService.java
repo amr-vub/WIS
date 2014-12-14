@@ -16,7 +16,7 @@ Event getEventById(int EventID);
 	
 	void updateEvent(Event Event);
 	
-	void deleteEvent(int EventID);
+	void deleteEvent(int uid, int EventID);
 	
 	
 }

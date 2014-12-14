@@ -13,6 +13,7 @@ import com.org.wis.data.dao.IArtistJobManager;
 import com.org.wis.data.dao.IBookerJobManager;
 import com.org.wis.data.domain.ArtistJob;
 import com.org.wis.data.domain.BookerJob;
+import com.org.wis.data.domain.Ranking;
 import com.org.wis.data.domain.User;
 
 
@@ -30,8 +31,7 @@ public class ArtistJobServiceImpl implements ArtistJobService {
 
 	@Transactional
 	public void saveArtistJob(ArtistJob artistJob) {
-		List<ArtistJob> ajs = artistJob.getArtLocation().getArtistJobs();
-		ajs.add(artistJob);
+		
 		
 		artJobM.saveArtistJob(artistJob);
 		
@@ -64,6 +64,27 @@ public class ArtistJobServiceImpl implements ArtistJobService {
 		return artJobM.getArtistByAlias(alias, nbrResults);
 	}
 
+	@Transactional
+	public void addRanking(int artistJobID, int rankValue, int uid) {
+		
+		ArtistJob aj = artJobM.getArtistJobById(artistJobID);
+		Ranking r = new Ranking();
+		r.setRankValue(rankValue);
+		r.setRankArtistJob(aj);
+		List<Ranking> rankings =aj.getRankings();
+		rankings.add(r);
+		int sum=0;
+		for(Ranking ranking : rankings){
+			sum += ranking.getRankValue();
+		}
+		System.out.println("sum" + sum + "size" +rankings.size());
+		aj.setRankingValue(sum/rankings.size());
+		artJobM.updateArtistJob(aj);
+	}
 	
-
+	@Transactional
+	public int getRanking(int artistJobID){
+		return artJobM.getArtistJobById(artistJobID).getRankingValue();
+	}	
+	
 }

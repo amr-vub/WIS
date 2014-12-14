@@ -75,11 +75,13 @@ public class EditEventController {
 		return "redirect:/search.do";
 	}
 	
-	@RequestMapping(value = "/event/{eventid}/delete.do", method = RequestMethod.POST)
-	public void deleteEvent(Model model, @ModelAttribute("id") String id, @PathVariable int eventid) {
+	@RequestMapping(value = "/event/{eventid}/delete.do", method = RequestMethod.GET)
+	public void deleteEvent(Model model, @ModelAttribute("id") int id, @PathVariable int eventid) {
 		
-		if(id !=null){		//user logged in
-			eventS.deleteEvent(eventid);
+		if(id >0){		//user logged in
+			System.out.println("delete event with id" + eventid);
+			eventS.deleteEvent(id,eventid);
+			System.out.println("deleted!");
 		}
 		
 	}
