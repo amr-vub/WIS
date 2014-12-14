@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
-import com.org.wis.data.domain.testUser;
+//import com.org.wis.data.domain.testUser;
 
 @SessionAttributes("email")
 @Controller

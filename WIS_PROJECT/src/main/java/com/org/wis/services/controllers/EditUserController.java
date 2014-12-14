@@ -31,6 +31,8 @@ public class EditUserController {
 		dbUser.setGSM(updatedUser.getGSM());
 		dbUser.setEmail(updatedUser.getEmail());
 		
+		// Then we should commit the update to the DB
+		userS.updateUser(dbUser);
 		
 		return "redirect:/search.do";
 	}
