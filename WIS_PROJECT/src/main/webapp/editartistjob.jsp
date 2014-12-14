@@ -16,7 +16,7 @@
 <div class="heading">ArtScout</div>
     
 <div id="wrapper">
-	<form:form name="login-form" class="login-form panel" action="addArtist.do" method="POST" modelAttribute="artistJob">
+	<form:form name="login-form" class="login-form panel" action="edit.do" method="POST" modelAttribute="artistJob">
 
 		<div class="header">
     		<h1>Artist Profile</h1>
@@ -25,9 +25,9 @@
     
     	<div class="map_canvas"></div>
 		<div class="content">
-			<form:input path="title" type="text" name="title" class="input" placeholder="Alias (optional)" spellcheck="false"/>
-            <form:textarea path="description" form="login-form" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
-            <form:input path="soundcloudLink" type="text" name="soundcloud-link" class="input" placeholder="Soundcloud link (optional)" spellcheck="false"/>
+			<form:input path="Aliase" type="text" name="title" class="input" placeholder="Alias (optional)" spellcheck="false"/>
+            <form:textarea path="Description" form="login-form" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
+            <form:input path="SondCloudLink" type="text" name="soundcloud-link" class="input" placeholder="Soundcloud link (optional)" spellcheck="false"/>
     	</div>
     
     	<div class="footer">

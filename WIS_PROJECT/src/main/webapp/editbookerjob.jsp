@@ -16,7 +16,7 @@
 <div class="heading">ArtScout</div>
     
 <div id="wrapper">
-	<form:form name="login-form" class="login-form panel" action="addBooker.do" method="POST" modelAttribute="booker">
+	<form:form name="login-form" class="login-form panel" action="edit.do" method="POST" modelAttribute="booker">
 
 		<div class="header">
     		<h1>Booker Profile</h1>
@@ -24,8 +24,8 @@
     	</div>
 
 		<div class="content">
-			<form:input path="label" type="text" name="event-title" class="input" placeholder="Company name (optional)" spellcheck="false"/>
-            <form:textarea path="description" form="login-form" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
+			<form:input path="Label" type="text" name="event-title" class="input" placeholder="Company name (optional)" spellcheck="false"/>
+            <form:textarea path="Description" form="login-form" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
     	</div>
     
     	<div class="footer">

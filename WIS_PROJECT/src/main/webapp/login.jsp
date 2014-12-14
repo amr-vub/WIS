@@ -24,13 +24,13 @@
     	</div>
     
 		<div class="content">
-			<form:input path="email" type="email" name="email" class="input" placeholder="E-mail address" spellcheck="false"/>
+			<form:input path="Username" type="text" name="username" class="input" placeholder="Username" spellcheck="false"/>
     		<form:input path="password" type="password" name="password" class="input" placeholder="Password" spellcheck="false"/>
     	</div>
     
     	<div class="footer">
     		<input type="submit" name="login" value="Login" class="button"/>
-    		<input type="submit" name="register" value="Register" class="button" href="/register.jsp"/>
+    		<input type="submit" name="register" value="Register" class="button" href="/register.do"/>
     	</div>
 
 	</form:form>

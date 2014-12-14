@@ -40,13 +40,10 @@
     	</div>
     
 		<div class="content">
-			<form:input path="email" type="email" name="email"  class="input" placeholder="E-mail address" spellcheck="false"/>
-    		<form:input path="password" type="password" name="password"  class="input" placeholder="Password" spellcheck="false"/>
-    		<form:input path="passwordRepeat" type="password" name="password-repeat" class="input" placeholder="Repeat Password" spellcheck="false"/>
-    		<form:input path="firstName" type="text" name="first-name"  class="input" placeholder="First Name" spellcheck="false"/>
-    		<form:input path="lastName" type="text" name="last-name"  class="input" placeholder="Last Name" spellcheck="false"/>
-    		<form:input path="location" type="text" id="geocomplete"  class="input" placeholder="Home Location" spellcheck="false"/>
-    	</div>
+			<form:input path="Email" type="email" name="email"  class="input" placeholder="E-mail address" spellcheck="false"/>
+    		<form:input path ="UserAuthentication.Username" name="Username" type="text" class="input" placeholder="Username" spellcheck="false"/>
+    		<form:input path="UserAuthentication.password" type="password" name="password"  class="input" placeholder="Password" spellcheck="false"/>
+     	</div>
     
     	<div class="footer">
     		<input type="submit" name="submit" value="Submit" class="button"/>

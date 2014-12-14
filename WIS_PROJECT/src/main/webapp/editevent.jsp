@@ -25,7 +25,7 @@
 <div class="heading">ArtScout</div>
     
 <div id="wrapper">
-	<form:form name="login-form" class="login-form panel" action="addEvent.do" method="POST" modelAttribute="event">
+	<form:form name="login-form" class="login-form panel" action="edit.do" method="POST" modelAttribute="event">
 
 		<div class="header">
     		<h1>Event</h1>
