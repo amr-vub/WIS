@@ -49,20 +49,22 @@ $(document).ready(function() {
     <div class="pass-icon"></div>
 
 	<!--Login form-->
-	<form:form name="login-form" class="login-form panel" action="login.do" method="POST" modelAttribute="myuser">
+	<form:form name="login-form" class="login-form panel" action="edituser.do" method="POST" modelAttribute="user">
 
 		<div class="header">
     		<h1>Welcome</h1>
-    		<span>Please login by entering your e-mail address and password.</span>
+    		<span>Edit user details</span>
     	</div>
     
 		<div class="content">
-			<form:input path ="email" name="email" type="email" class="input username" placeholder="E-mail address" spellcheck="false"/>
-    		<form:input path ="password" name="password" type="password" class="input password" placeholder="Password" spellcheck="false"/>
+			<form:input path ="userName" name="userName" type="text" class="input userName" placeholder="userName" spellcheck="false"/>
+			<form:input path ="GSM" name="GSM" type="text" class="input GSM" placeholder="GSM" spellcheck="false"/>
+			<form:input path ="Email" name="email" type="email" class="input username" placeholder="E-mail address" spellcheck="false"/>
+    		<form:input path ="UserAuthentication.password" name="password" type="text" class="input password" placeholder="password" spellcheck="false"/>
     	</div>
     
     	<div class="footer">
-    		<input type="submit" name="submit" value="Login" class="button" />
+    		<input type="submit" name="submit" value="edituser" class="button" />
     	</div>
     
 	</form:form>

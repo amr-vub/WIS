@@ -49,20 +49,23 @@ $(document).ready(function() {
     <div class="pass-icon"></div>
 
 	<!--Login form-->
-	<form:form name="login-form" class="login-form panel" action="login.do" method="POST" modelAttribute="myuser">
+	<form:form name="login-form" class="login-form panel" action="edit.do" method="POST" modelAttribute="artistjob">
 
 		<div class="header">
     		<h1>Welcome</h1>
-    		<span>Please login by entering your e-mail address and password.</span>
+    		<span>Enter credentials</span>
     	</div>
     
 		<div class="content">
-			<form:input path ="email" name="email" type="email" class="input username" placeholder="E-mail address" spellcheck="false"/>
-    		<form:input path ="password" name="password" type="password" class="input password" placeholder="Password" spellcheck="false"/>
+			<form:input path ="ArtFrom" name="ArtFrom" type="text" class="input ArtFrom" placeholder="ArtFrom" spellcheck="false"/>
+			<form:input path ="Aliase" name="Aliase" type="text" class="input Aliase" placeholder="Aliase" spellcheck="false"/>
+			<form:input path ="PersonalWebSite" name="PersonalWebSite" type="email" class="input PersonalWebSite" placeholder="PersonalWebSite" spellcheck="false"/>
+    		<form:input path ="SondCloudLink" name="SondCloudLink" type="text" class="input SondCloudLink" placeholder="SondCloudLink" spellcheck="false"/>
+    		<form:input path ="Description" name="Description" type="text" class="input Description" placeholder="Description" spellcheck="false"/>
     	</div>
-    
+    	
     	<div class="footer">
-    		<input type="submit" name="submit" value="Login" class="button" />
+    		<input type="submit" name="submit" value="saveartistjob" class="button" />
     	</div>
     
 	</form:form>

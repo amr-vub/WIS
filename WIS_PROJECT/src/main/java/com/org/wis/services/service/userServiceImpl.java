@@ -23,24 +23,56 @@ public class userServiceImpl implements userService{
 		
 	}
 	
+	
+	
 	@Transactional(readOnly = true)
 	public User authenticateUser(String email,String password){
-		
+		UserAuthentication uA;
 		User u = userM.getUserByEmail(email);
-		UserAuthentication uA = u.getUserAuthentication();
-		if( uA.getPassword().equals(password)){
-			return u;
-		}else{
-			return null;	
+		if(u != null){
+			uA = u.getUserAuthentication();
+			if(uA != null){
+				if( uA.getPassword().equals(password)){
+					return u;
+				}
+			}
 		}
+		
+		
+		return null;	
+		
+	}
+	
+	@Transactional(readOnly = true)
+	public User getUserById(int id){
+		
+		return userM.getUserById(id);
+	
+	}
+	
+	@Transactional
+	public void updateUser(User user){
+		
+		userM.updateUser(user);
+	
+	}
+	
+	@Transactional(readOnly = true)
+	public User getUserByEmail(String id){
+		
+		return userM.getUserByEmail(id);
+	
 	}
 
 	@Transactional
 	public boolean addUser(User user) {
+		
 		if(userM.getUserByEmail(user.getEmail()) == null){
 			userM.saveUser(user);
 			return true;
 		}else return false;
+	
+
 	}
 
 	@Transactional

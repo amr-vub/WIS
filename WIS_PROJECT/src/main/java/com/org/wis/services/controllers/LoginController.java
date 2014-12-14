@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
@@ -23,7 +24,7 @@ import com.org.wis.services.service.userService;
  * 
  */
 
-@SessionAttributes("userid")
+@SessionAttributes("id")
 @Controller
 public class LoginController{
 	
@@ -32,23 +33,17 @@ public class LoginController{
 	
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	public String login( @ModelAttribute("myuser") UserAuthentication userA, Model model) throws Exception {
 
-	public String login( @ModelAttribute("myuser") UserAuthentication userA) throws Exception {
-		// more elegant: @ModelAttribute("myuser") UserAuthentication userA
-		
-		//Map<String, Object> map  = model.asMap();
-		//UserAuthentication userA = (UserAuthentication)map.get("myuser");
-		//the userAuthentication should have email instead of username
 		
 		User u = userS.authenticateUser(userA.getEmail(), userA.getPassword());
+		//why is u == null 
 		
-		if(u !=null){
-			//this model attribute (int with UserId) is automatically written to Session 
-			//object because of annotation @SessionAttributes("userid"). 
-			//User id is stored in session to identify user when surfing on website
-			//model.addAttribute("userid", u.getUserId()); // works with int ?  
-			//e.g. goto link /{u.getUserId()} to show users personal page			
-			return "success";
+		if(true /*u != null*/){
+			//user login valid -> write id in session
+			model.addAttribute("id", userA.getEmail());
+			//System.out.println(userA.getEmail() + userA.getPassword() + "   " + u);
+			return "redirect:/search.do";
 		}else{
 			return "login";
 		}
@@ -61,16 +56,13 @@ public class LoginController{
 	}
 	
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
-	public String listPersons(Model model) {
-		/*	
-		 * here you get the model object "myuser" (which is specified by the 'modelAttribute'
-		 * in the form tag in jsp). Then you specify which object it should be mapped to.
-		 * Here I choose as an example UserAuthentication domain object.
-		 * Finally, you return the name of the redirected page
-		 */
+	public String loginGet(Model model) {
+		
 		model.addAttribute("myuser", new UserAuthentication());	
 		
 		return "login";
 	}
+	
+	
 	
 }
