@@ -20,8 +20,11 @@ public class Location {
 	String placeName;
 	
 	@Column
-	String coordenate;
+	double lon;
 
+	@Column
+	double lat;
+	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "artLocation")
 	List<ArtistJob> artistJobs = new ArrayList<ArtistJob>();
 	
