@@ -35,7 +35,7 @@ body{
 	font-weight:300;
 	text-align: left;
 	text-decoration: none;
-	overflow:hidden;
+	overflow:scroll;
 }
 
 .heading {

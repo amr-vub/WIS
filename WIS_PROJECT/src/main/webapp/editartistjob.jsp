@@ -34,8 +34,10 @@
 			<form:input path="Aliase" type="text" name="title" class="input" placeholder="Alias (optional)" spellcheck="false"/>
             <form:textarea path="Description" form="login-form" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
             <form:input id="geocomplete" path ="ArtLocation.placeName" name="LocationName" type="text" class="input locationName" placeholder="Location" spellcheck="false"/>
-          	<form:input path ="ArtLocation.Lon" name="longitude" type="text" class="input coordinate" placeholder="longitude" spellcheck="false"/>
-    		<form:input path ="ArtLocation.Lat" name="latitude" type="text" class="input coordinate" placeholder="latitude" spellcheck="false"/>
+          	<fieldset>
+          	<form:input path ="ArtLocation.Lon" name="lng" type="text" class="input coordinate" placeholder="longitude" spellcheck="false"/>
+    		<form:input path ="ArtLocation.Lat" name="lat" type="text" class="input coordinate" placeholder="latitude" spellcheck="false"/>
+    		</fieldset>
     		
             <form:input path="SondCloudLink" type="text" name="soundcloud-link" class="input" placeholder="Soundcloud link (optional)" spellcheck="false"/>
     	</div>
@@ -45,7 +47,11 @@
     	</div>
     	<script>    	
         $(function(){
-          $("#geocomplete").geocomplete({types: ["geocode"]});
+          $("#geocomplete").geocomplete(
+        		  {
+        			types: ["geocode"],
+        		  	details: "form"
+        		  });
         });
       	</script>
 

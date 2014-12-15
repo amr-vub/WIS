@@ -41,7 +41,7 @@ public class LoginController{
 			//user login valid -> write id in session
 			model.addAttribute("id", u.getUserId());
 			//System.out.println(userA.getEmail() + userA.getPassword() + "   " + u);
-			return "redirect:/search.do";
+			return "mainview";
 		}else{
 			return "login";
 		}
