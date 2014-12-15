@@ -48,7 +48,7 @@ public class Event {
 	List<BookerJob> eventsBookers = new ArrayList<BookerJob>();
 
 	@ManyToOne @JoinColumn(nullable=true)
-	Place place;	
+	Location eventLocation;
 	
 	public List<User> getEventsUser() {
 		return eventsUser;
@@ -72,14 +72,14 @@ public class Event {
 
 	public void setEventsBookers(List<BookerJob> eventsBookers) {
 		this.eventsBookers = eventsBookers;
+	}	
+
+	public Location getEventLocation() {
+		return eventLocation;
 	}
 
-	public Place getPlace() {
-		return place;
-	}
-
-	public void setPlace(Place place) {
-		this.place = place;
+	public void setEventLocation(Location eventLocation) {
+		this.eventLocation = eventLocation;
 	}
 
 	public int getEventID() {

@@ -1,5 +1,7 @@
 package com.org.wis.data.dao;
 
+import java.util.List;
+
 import com.org.wis.data.domain.Event;
 
 public interface IEventManager {
@@ -11,4 +13,7 @@ public interface IEventManager {
 	void updateEvent(Event event);
 	
 	void deleteEvent(Event event);
+	
+	public List<Event> searchArtistInArea(String searchterm, int nbrResults,
+			double minlon, double maxlon, double minlat, double maxlat);
 }

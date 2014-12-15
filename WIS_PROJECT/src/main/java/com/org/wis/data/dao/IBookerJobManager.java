@@ -15,4 +15,7 @@ public interface IBookerJobManager {
 	void deleteBookerJob(BookerJob bookerJob);
 	
 	public List<BookerJob> getBookerByLabel(String label, int nbrResults);
+	
+	public List<BookerJob> searchArtistInArea(String searchterm, int nbrResults,
+			double minlon, double maxlon, double minlat, double maxlat);
 }

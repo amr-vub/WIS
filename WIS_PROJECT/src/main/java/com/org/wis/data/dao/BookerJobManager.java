@@ -48,4 +48,17 @@ public class BookerJobManager implements IBookerJobManager{
 		this.sessionFactory = sessionFactory;
 	}
 
+	public List<BookerJob> searchArtistInArea(String searchterm,
+			int nbrResults, double minlon, double maxlon, double minlat,
+			double maxlat) {
+		
+		List<BookerJob> lis = (List<BookerJob>) getSessionFactory().getCurrentSession()
+		.createQuery("SELECT u FROM BookerJob u WHERE u.bookerLocation.lon BETWEEN :langLow AND :langHigh "
+				+ " AND u.artLocation.lat BETWEEN :latLow AND :latHigh")
+		.setParameter("longLow", minlon).setParameter("langHigh", maxlon).
+		setParameter("latLow", minlat).setParameter("latHigh", maxlat).setMaxResults(nbrResults);
+		
+		return lis;
+	}
+
 }

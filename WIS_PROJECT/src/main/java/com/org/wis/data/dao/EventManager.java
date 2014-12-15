@@ -1,5 +1,7 @@
 package com.org.wis.data.dao;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,6 +38,18 @@ public class EventManager implements IEventManager{
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	public List<Event> searchArtistInArea(String searchterm, int nbrResults,
+			double minlon, double maxlon, double minlat, double maxlat) {
+		
+		List<Event> lis = (List<Event>) getSessionFactory().getCurrentSession()
+		.createQuery("SELECT u FROM Event u WHERE u.eventLocation.lon BETWEEN :langLow AND :langHigh "
+				+ " AND u.artLocation.lat BETWEEN :latLow AND :latHigh")
+		.setParameter("longLow", minlon).setParameter("langHigh", maxlon).
+		setParameter("latLow", minlat).setParameter("latHigh", maxlat).setMaxResults(nbrResults);
+		
+		return lis;
 	}
 
 }

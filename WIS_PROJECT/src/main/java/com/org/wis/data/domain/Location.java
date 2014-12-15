@@ -31,8 +31,8 @@ public class Location {
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bookerLocation")
 	List<BookerJob> bookerJobs = new ArrayList<BookerJob>();
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "location")
-	List<Place> places = new ArrayList<Place>();
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "eventLocation")
+	List<Event> places = new ArrayList<Event>();
 	
 	
 	
@@ -52,11 +52,12 @@ public class Location {
 		this.artistJobs = artistJobs;
 	}
 
-	public List<Place> getPlaces() {
+
+	public List<Event> getPlaces() {
 		return places;
 	}
 
-	public void setPlaces(List<Place> places) {
+	public void setPlaces(List<Event> places) {
 		this.places = places;
 	}
 
