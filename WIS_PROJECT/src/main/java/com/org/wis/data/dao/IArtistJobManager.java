@@ -15,4 +15,7 @@ public interface IArtistJobManager {
 	void deleteArtistJob(ArtistJob artistJob);
 	
 	public List<ArtistJob> getArtistByAlias(String alias, int nbrResults);
+	
+	public List<ArtistJob> searchArtistInArea(String searchterm, int nbrResults,
+			double minlon, double maxlon, double minlat, double maxlat);
 }

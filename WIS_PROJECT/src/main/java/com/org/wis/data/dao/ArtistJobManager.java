@@ -39,6 +39,17 @@ public class ArtistJobManager implements IArtistJobManager{
 		return ret;
 	}
 	
+	public List<ArtistJob> searchArtistInArea(String searchterm, int nbrResults,
+			double minlon, double maxlon, double minlat, double maxlat){
+		List<ArtistJob> ret = (List<ArtistJob>) getSessionFactory().getCurrentSession()
+				.createQuery("SELECT u FROM ArtistJob u WHERE u.artLocation.lon BETWEEN :langLow AND :langHigh "
+						+ " AND u.artLocation.lat BETWEEN :latLow AND :latHigh")
+				.setParameter("longLow", minlon).setParameter("langHigh", maxlon).
+				setParameter("latLow", minlat).setParameter("latHigh", maxlat).setMaxResults(nbrResults);
+		
+		return ret;
+	}
+	
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
