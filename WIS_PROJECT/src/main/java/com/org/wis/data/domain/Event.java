@@ -35,7 +35,7 @@ public class Event {
 	@ManyToMany(mappedBy="events")
 	List<BookerJob> eventsBookers = new ArrayList<BookerJob>();
 
-	@ManyToOne @JoinColumn(nullable=false)
+	@ManyToOne @JoinColumn(nullable=true)
 	Place place;
 	
 	

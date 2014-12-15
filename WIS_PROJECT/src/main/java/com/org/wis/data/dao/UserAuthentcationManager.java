@@ -29,7 +29,7 @@ public class UserAuthentcationManager implements IUserAuthentcationManager{
 				+ "u.password = :password ").setParameter("username", username).
 				setParameter("password", password).list();
 		
-		if(potentialUserAuth != null)
+		if(!potentialUserAuth.isEmpty())
 			return potentialUserAuth.get(0).getUser().getUserId();
 		
 		return -1;

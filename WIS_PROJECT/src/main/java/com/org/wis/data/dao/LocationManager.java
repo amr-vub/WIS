@@ -22,7 +22,7 @@ public class LocationManager implements ILocationManager{
 		List<Location> locs = getSessionFactory().getCurrentSession().
 				createQuery("SELECT u FROM Location u WHERE u.coordenate LIKE :coordenate").
 				setParameter("coordenate", coords).list();
-		if(locs.size()!=0)
+		if(!locs.isEmpty())
 			return locs.get(0);
 		return null;
 	}

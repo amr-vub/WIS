@@ -22,7 +22,7 @@ public class Place {
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "place")
 	List<Event> events = new ArrayList<Event>();
 	
-	@ManyToOne @JoinColumn(nullable = false)
+	@ManyToOne @JoinColumn(nullable = true)
 	Location location;
 		
 	public List<Event> getEvents() {
