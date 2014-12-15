@@ -37,7 +37,7 @@ public class testController {
 	public String test1() throws Exception{
 		
 		UserAuthentication u = new UserAuthentication();
-		u.setEmail("a@b.com");
+		//u.setEmail("a@b.com");
 		u.setPassword("1234");
 		
 	

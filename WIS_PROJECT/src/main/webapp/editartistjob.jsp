@@ -3,11 +3,17 @@
 <head>
  
     <!--Stylesheets-->
-    <link href="themes/css/globalstyle.css" rel="stylesheet" type="text/css"/>
-    <link href="themes/css/artistprofilestyle.css" rel="stylesheet" type="text/css"/>
-    <link href="themes/css/jquery.timepicker.css" rel="stylesheet" type="text/css"/>
-    <link href="themes/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
-
+    <link href="../../themes/css/globalstyle.css" rel="stylesheet" type="text/css"/>
+    <link href="../../themes/css/artistprofilestyle.css" rel="stylesheet" type="text/css"/>
+    <link href="../../themes/css/jquery.timepicker.css" rel="stylesheet" type="text/css"/>
+    <link href="../../themes/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
+	
+	<!--Script references-->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+ 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+ 	<script type="text/javascript" src="../../themes/js/jquery.geocomplete.js"></script>
+ 	<script type="text/javascript" src="../../themes/js/logger.js"></script>
+ 	
 </head>
 
 <!--Content-->
@@ -16,7 +22,7 @@
 <div class="heading">ArtScout</div>
     
 <div id="wrapper">
-	<form:form name="login-form" class="login-form panel" action="edit.do" method="POST" modelAttribute="artistJob">
+	<form:form name="login-form" class="login-form panel" action="edit.do" method="POST" modelAttribute="artistjob">
 
 		<div class="header">
     		<h1>Artist Profile</h1>
@@ -27,8 +33,9 @@
 		<div class="content">
 			<form:input path="Aliase" type="text" name="title" class="input" placeholder="Alias (optional)" spellcheck="false"/>
             <form:textarea path="Description" form="login-form" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
-          	<form:input path ="ArtLocation.Lon" name="longitude" type="text" class="input longitude" placeholder="longitude" spellcheck="false"/>
-    		<form:input path ="ArtLocation.Lat" name="latitude" type="text" class="input latitude" placeholder="latitude" spellcheck="false"/>
+            <form:input id="geocomplete" path ="ArtLocation.placeName" name="LocationName" type="text" class="input locationName" placeholder="Location" spellcheck="false"/>
+          	<form:input path ="ArtLocation.Lon" name="longitude" type="text" class="input coordinate" placeholder="longitude" spellcheck="false"/>
+    		<form:input path ="ArtLocation.Lat" name="latitude" type="text" class="input coordinate" placeholder="latitude" spellcheck="false"/>
     		
             <form:input path="SondCloudLink" type="text" name="soundcloud-link" class="input" placeholder="Soundcloud link (optional)" spellcheck="false"/>
     	</div>
@@ -36,6 +43,11 @@
     	<div class="footer">
     		<input type="submit" name="submit" value="Submit" class="button"/>
     	</div>
+    	<script>    	
+        $(function(){
+          $("#geocomplete").geocomplete({types: ["geocode"]});
+        });
+      	</script>
 
 	</form:form>
 </div>

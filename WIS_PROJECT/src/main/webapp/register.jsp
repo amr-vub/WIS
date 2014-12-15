@@ -6,12 +6,6 @@
 	<link href="themes/css/globalstyle.css" rel="stylesheet" type="text/css" />
 	<link href="themes/css/registerstyle.css" rel="stylesheet" type="text/css" />
 
-	<!--Script references-->
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-	<script type="text/javascript" src="themes/js/jquery.geocomplete.js"></script>
-	<script type="text/javascript" src="themes/js/logger.js"></script>
-
 	<!--Form validation-->
 	<script>
 	function validateForm() {
@@ -32,7 +26,7 @@
 <div class="heading">ArtScout</div>
     
 <div id="wrapper">
-	<form:form name="login-form" class="login-form panel" action="register.do" onsubmit="return validateForm()" method="POST" modelAttribute="myuser">
+	<form:form name="login-form" class="login-form panel" action="register.do" onsubmit="return validateForm()" method="POST" modelAttribute="user">
 
 		<div class="header">
     		<h1>Registration</h1>
@@ -48,13 +42,6 @@
     	<div class="footer">
     		<input type="submit" name="submit" value="Submit" class="button"/>
     	</div>
-    	
-    	<script>
-      	$(function(){
-	        $("#geocomplete").geocomplete({
-          		types: ["geocode"]});
-      	});
-    	</script>
 
 	</form:form>
 </div>

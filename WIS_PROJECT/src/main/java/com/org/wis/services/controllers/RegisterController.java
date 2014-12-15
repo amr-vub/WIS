@@ -23,7 +23,7 @@ public class RegisterController {
 	
 	@RequestMapping(value = "/register.do", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("user") User u) throws Exception {
-		if(userS.addUser(u)) return "redirect:/login.do";
+		if(userS.addUser(u)) return "redirect:/registersucces.do";
 		return "register";
 	}
 	
