@@ -34,7 +34,6 @@ public class SearchServiceImpl implements SearchService {
 
 	}
 
-	//searching for artists and bookers and get back the first 'nbrResults' results from db
 	@Transactional
 	public List<ArtistJob> searchArtist(String alias, int nbrResults) {
 	
@@ -44,22 +43,38 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Transactional
-	public List<BookerJob> searchBooker(String name, int nbrResults) {
+	public List<BookerJob> searchBooker(String searchterm, int nbrResults) {
 		
-		return bookJobM.getBookerByLabel(name,nbrResults);
+		return bookJobM.getBookerByLabel(searchterm,nbrResults);
 	}
 	
 	@Transactional
-	public List<ArtistJob> searchArtistInArea(String name, int nbrResults, int lon, int lat, int radiusKm){
-		return null;//artJobM.getArtistsInRadius(name,nbrResults, lon, lat, radius);
+	public List<Event> searchEvent(String searchterm, int nbrResults) {
+		
+		return null;//bookJobM.getEventByDescription(searchterm,nbrResults);
 	}
 	
 	@Transactional
-	public List<Event> searchEventsInArea(String name, int nbrResults, int lon, int lat, int radiusKm){
-		return null;//eventM.getEventsInRadius(name, nbrResults, lon, lat, radius);
+	public List<ArtistJob> searchArtistInArea(String searchterm, int nbrResults, double lon, double lat, double radiusKm){
+		//Thats actually tricky, because the distance in km of one degree longitude depends on the latitude
+		//near the equator its much longer than near the pole.. use this formular
+		//dist between two points (Radius of earth 6317km):
+		// dist = arccos(sin(lat1) · sin(lat2) + cos(lat1) · cos(lat2) · cos(lon1 - lon2))* 6317km
+		// http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates
+		
+		return null;//artJobM.getArtistsInRadius(searchterm,nbrResults, lon, lat, radius);
 	}
 	
-
+	@Transactional
+	public List<BookerJob> searchBookerInArea(String searchterm, int nbrResults, double lon, double lat, double radiusKm){
+		return null;//artJobM.getBookerInRadius(searchterm,nbrResults, lon, lat, radius);
+	}
+	
+	@Transactional
+	public List<Event> searchEventsInArea(String searchterm, int nbrResults, double lon, double lat, double radiusKm){
+		return null;//eventM.getEventsInRadius(searchterm, nbrResults, lon, lat, radius);
+	}
+	
 	public IArtistJobManager getArtJobM() {
 		return artJobM;
 	}
@@ -75,10 +90,4 @@ public class SearchServiceImpl implements SearchService {
 	public void setBookJobM(IBookerJobManager bookJobM) {
 		this.bookJobM = bookJobM;
 	}
-	
-	
-	
-	//TODO
-	//maybe search functionality to show artists within a radius of a place(lang,lat)
-
 }

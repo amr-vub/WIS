@@ -92,3 +92,13 @@
 
 </body>
 </html>
+
+
+
+<%-- 
+      Searching within radius works the same way but with the following paths 
+   		/search/booker/'+nbrResults+'/'+searchterm+'/'+lon+'/'+lat+'/'+radiuskm+'.do'
+   		/search/artist/'+nbrResults+'/'+searchterm+'/'+lon+'/'+lat+'/'+radiuskm+'.do'
+   		/search/event/'+nbrResults+'/'+searchterm+'/'+lon+'/'+lat+'/'+radiuskm+'.do'
+  --%>
+
