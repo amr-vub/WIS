@@ -63,12 +63,20 @@ public class Location {
 		this.placeName = placeName;
 	}
 
-	public String getCoordenate() {
-		return coordenate;
+	public double getLon() {
+		return lon;
 	}
 
-	public void setCoordenate(String coordenate) {
-		this.coordenate = coordenate;
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
 	}
 		
 	
