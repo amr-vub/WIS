@@ -3,6 +3,8 @@ package com.org.wis.services.controllers;
 import java.util.List;
 import java.util.Map;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +38,7 @@ public class EditArtistJobController {
 	
 	
 	@RequestMapping(value = "/artistjob/add.do", method = RequestMethod.POST)
+	@Transactional
 	public String saveArtistJobDetails(@ModelAttribute("artistjob") ArtistJob newAJ, @ModelAttribute("id") int id) throws Exception {
 		System.out.println("location" + newAJ.getArtLocation().getLocationId());
 		User u = userS.getUserById(id);
