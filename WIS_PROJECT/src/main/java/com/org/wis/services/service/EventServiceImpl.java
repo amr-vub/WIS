@@ -37,10 +37,11 @@ public class EventServiceImpl implements EventService {
 	}
 
 	@Transactional
+	//TODO: check the new Event object
 	public void updateEvent(Event updatedEv) {
 		Event dbEv = eventM.findEventById(updatedEv.getEventID());
 		dbEv.setDescription(updatedEv.getDescription());
-		dbEv.setEventDate(updatedEv.getEventDate());
+		//dbEv.setEventDate(updatedEv.getEventDate());
 		
 		eventM.updateEvent(dbEv);
 		

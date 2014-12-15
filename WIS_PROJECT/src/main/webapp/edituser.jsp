@@ -57,8 +57,7 @@ $(document).ready(function() {
     	</div>
     
 		<div class="content">
-			<form:input path ="UserAuthentication.Username" name="Username" type="text" class="input Username" placeholder="Username" spellcheck="false"/>
-			<form:input path ="GSM" name="GSM" type="text" class="input GSM" placeholder="GSM" spellcheck="false"/>
+			<form:input path ="UserAuthentication.Username" name="Username" type="text" class="input Username" placeholder="Username" spellcheck="false"/>			
 			<form:input path ="Email" name="email" type="email" class="input username" placeholder="E-mail address" spellcheck="false"/>
     		<form:input path ="UserAuthentication.password" name="password" type="text" class="input password" placeholder="password" spellcheck="false"/>
     	</div>

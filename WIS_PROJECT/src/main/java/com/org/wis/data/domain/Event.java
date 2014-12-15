@@ -20,8 +20,20 @@ public class Event {
 	@Id @GeneratedValue
 	int eventID;
 	
+	@Column
+	String title;
+	
 	@Column @Temporal(value = TemporalType.DATE)
-	Date eventDate;
+	Date eventStartDate;
+	
+	@Column @Temporal(value = TemporalType.DATE)
+	Date eventEndDate;
+	
+	@Column @Temporal(value = TemporalType.TIME)
+	Date eventStartTime;
+	
+	@Column @Temporal(value = TemporalType.TIME)
+	Date eventEndTime;
 	
 	@Column
 	String description;
@@ -36,9 +48,7 @@ public class Event {
 	List<BookerJob> eventsBookers = new ArrayList<BookerJob>();
 
 	@ManyToOne @JoinColumn(nullable=true)
-	Place place;
-	
-	
+	Place place;	
 	
 	public List<User> getEventsUser() {
 		return eventsUser;
@@ -80,12 +90,44 @@ public class Event {
 		this.eventID = eventID;
 	}
 
-	public Date getEventDate() {
-		return eventDate;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setEventDate(Date eventDate) {
-		this.eventDate = eventDate;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public Date getEventStartDate() {
+		return eventStartDate;
+	}
+
+	public void setEventStartDate(Date eventStartDate) {
+		this.eventStartDate = eventStartDate;
+	}
+
+	public Date getEventEndDate() {
+		return eventEndDate;
+	}
+
+	public void setEventEndDate(Date eventEndDate) {
+		this.eventEndDate = eventEndDate;
+	}
+
+	public Date getEventStartTime() {
+		return eventStartTime;
+	}
+
+	public void setEventStartTime(Date eventStartTime) {
+		this.eventStartTime = eventStartTime;
+	}
+
+	public Date getEventEndTime() {
+		return eventEndTime;
+	}
+
+	public void setEventEndTime(Date eventEndTime) {
+		this.eventEndTime = eventEndTime;
 	}
 
 	public String getDescription() {
