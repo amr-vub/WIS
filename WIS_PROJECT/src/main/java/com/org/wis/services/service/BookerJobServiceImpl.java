@@ -7,8 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+
+
+
+
 import com.org.wis.data.dao.IBookerJobManager;
+import com.org.wis.data.dao.IUserManager;
+import com.org.wis.data.dao.LocationManager;
 import com.org.wis.data.domain.BookerJob;
+import com.org.wis.data.domain.Location;
+import com.org.wis.data.domain.User;
 
 
 
@@ -16,19 +24,35 @@ import com.org.wis.data.domain.BookerJob;
 public class BookerJobServiceImpl implements BookerJobService {
 
 	@Autowired
+	IUserManager userM;
+	
+	@Autowired
 	IBookerJobManager bookerJobM;
 
+	@Autowired
+	LocationManager locationM;
+	
+	@Autowired
+	userService userS;
+	
 	@Transactional(readOnly = true)
 	public BookerJob getBookerJobById(int bookerJobID) {
 		BookerJob bj =  bookerJobM.getBookerJobById(bookerJobID);
 		return bj;
 	}
 
+	
 	@Transactional
-	public void saveBookerJob(BookerJob bookerJob) {
-		
-		
-		bookerJobM.saveBookerJob(bookerJob);
+	public void addBookerJob(int id, BookerJob newBJ){
+	
+		User u = userS.getUserById(id);
+		u.getBookerJob().add(newBJ);
+		newBJ.setBookerUser(u);
+		Location l = newBJ.getBookerLocation();
+		l.getBookerJobs().add(newBJ);
+		userM.updateUser(u);
+		locationM.saveLocation(l);
+		bookerJobM.saveBookerJob(newBJ);
 		
 	}
 
@@ -39,7 +63,10 @@ public class BookerJobServiceImpl implements BookerJobService {
 		dbBJ.setEmail(updatedBJ.getEmail());
 		dbBJ.setGsm(updatedBJ.getGsm());
 		dbBJ.setLabel(updatedBJ.getLabel());
-		
+		Location l =updatedBJ.getBookerLocation();
+		dbBJ.getBookerLocation().setLon(l.getLon());
+		dbBJ.getBookerLocation().setLat(l.getLat());
+		locationM.updateLocation(l);
 		bookerJobM.updateBookerJob(dbBJ);
 		
 	}
@@ -56,5 +83,6 @@ public class BookerJobServiceImpl implements BookerJobService {
 	public List<BookerJob> getBookerByLabel(String label, int nbrResults) {
 		return bookerJobM.getBookerByLabel(label, nbrResults);
 	}
+	
 	
 }

@@ -12,7 +12,8 @@ public interface ArtistJobService {
 	
 ArtistJob getArtistJobById(int artistJobID);
 	
-	void saveArtistJob(ArtistJob artistJob);
+	void addArtistJob(int uid, ArtistJob artistjob);
+	
 	
 	void updateArtistJob(ArtistJob artistJob);
 	

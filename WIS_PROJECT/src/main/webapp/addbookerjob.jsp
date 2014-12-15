@@ -49,25 +49,25 @@ $(document).ready(function() {
     <div class="pass-icon"></div>
 
 	<!--Login form-->
-	<form:form name="login-form" class="login-form panel" action="add.do" method="POST" modelAttribute="artistjob">
+	<form:form name="login-form" class="login-form panel" action="add.do" method="POST" modelAttribute="bookerjob">
 
 		<div class="header">
-    		<h1>Welcome</h1>
-    		<span>Enter credentials</span>
+    		<h1>bookerjob</h1>
+    		<span>Enter details</span>
     	</div>
     
 		<div class="content">
-			<form:input path ="ArtFrom" name="ArtFrom" type="text" class="input ArtFrom" placeholder="ArtFrom" spellcheck="false"/>
-			<form:input path ="Aliase" name="Aliase" type="text" class="input Aliase" placeholder="Aliase" spellcheck="false"/>
-			<form:input path ="PersonalWebSite" name="PersonalWebSite" type="email" class="input PersonalWebSite" placeholder="PersonalWebSite" spellcheck="false"/>
-    		<form:input path ="SondCloudLink" name="SondCloudLink" type="text" class="input SondCloudLink" placeholder="SondCloudLink" spellcheck="false"/>
+			<form:input path ="Label" name="Label" type="text" class="input Label" placeholder="Label" spellcheck="false"/>
+			<form:input path ="Email" name="Email" type="text" class="input Email" placeholder="Email" spellcheck="false"/>
+			<form:input path ="Gsm" name="PersonalWebSite" type="Gsm" class="input Gsm" placeholder="Gsm" spellcheck="false"/>
     		<form:input path ="Description" name="Description" type="text" class="input Description" placeholder="Description" spellcheck="false"/>
-    		<form:input path ="ArtLocation.Lon" name="longitude" type="text" class="input longitude" placeholder="longitude" spellcheck="false"/>
-    		<form:input path ="ArtLocation.Lat" name="latitude" type="text" class="input latitude" placeholder="latitude" spellcheck="false"/>
+    		<form:input path ="BookerLocation.Lon" name="longitude" type="text" class="input longitude" placeholder="longitude" spellcheck="false"/>
+    		<form:input path ="BookerLocation.Lat" name="latitude" type="text" class="input latitude" placeholder="latitude" spellcheck="false"/>
+    		
     	</div>
     
     	<div class="footer">
-    		<input type="submit" name="submit" value="saveartistjob" class="button" />
+    		<input type="submit" name="submit" value="savebookerjob" class="button" />
     	</div>
     
 	</form:form>

@@ -12,7 +12,7 @@ public interface BookerJobService {
 	
 BookerJob getBookerJobById(int bookerJobID);
 	
-	void saveBookerJob(BookerJob bookerJob);
+	void addBookerJob(int userid, BookerJob bookerJob);
 	
 	void updateBookerJob(BookerJob bookerJob);
 	

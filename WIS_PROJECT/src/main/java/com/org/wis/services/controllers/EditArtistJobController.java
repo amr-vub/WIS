@@ -38,17 +38,9 @@ public class EditArtistJobController {
 	
 	
 	@RequestMapping(value = "/artistjob/add.do", method = RequestMethod.POST)
-	@Transactional
 	public String saveArtistJobDetails(@ModelAttribute("artistjob") ArtistJob newAJ, @ModelAttribute("id") int id) throws Exception {
-		System.out.println("location" + newAJ.getArtLocation().getLocationId());
-		User u = userS.getUserById(id);
-		u.getArtistJob().add(newAJ);
-		newAJ.setArtUser(u);
-		Location l = newAJ.getArtLocation();
-		l.getArtistJobs().add(newAJ);
-		userS.updateUser(u);
-		locationS.saveLocation(l);
-		artistS.saveArtistJob(newAJ);
+		
+		artistS.addArtistJob(id, newAJ);
 		
 		return "redirect:/search.do";
 	}
@@ -60,7 +52,6 @@ public class EditArtistJobController {
 			Location l = new Location();
 			l.getArtistJobs().add(aj);
 			aj.setArtLocation(l);
-			System.out.println("location of new artistjob"  + aj.getArtLocation()+ "\n artistjob of location:"  + l.getArtistJobs().get(0));
 			model.addAttribute("artistjob", aj);
 			return "addartistjob";
 		}else return "redirect:/login.do";
@@ -82,11 +73,10 @@ public class EditArtistJobController {
 	
 	@RequestMapping(value = "/artistjob/{artistjobid}/edit.do", method = RequestMethod.POST)
 	public String updateArtistJobDetails(@ModelAttribute("artistjob") ArtistJob updatedAJ, @ModelAttribute("id") String id, @PathVariable int artistjobid) throws Exception {
-		System.out.println("artistjobid" + updatedAJ.getArtistJobID());
-		updatedAJ.setArtistJobID(artistjobid);
-		System.out.println("artistjobid" + updatedAJ.getArtistJobID());
-		artistS.updateArtistJob(updatedAJ);
-		
+		if(id !=null){		//user logged in
+			updatedAJ.setArtistJobID(artistjobid);
+			artistS.updateArtistJob(updatedAJ);
+		}
 		return "redirect:/search.do";
 	}
 	

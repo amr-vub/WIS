@@ -11,8 +11,11 @@ import com.org.wis.data.dao.ArtistJobManager;
 import com.org.wis.data.dao.BookerJobManager;
 import com.org.wis.data.dao.IArtistJobManager;
 import com.org.wis.data.dao.IBookerJobManager;
+import com.org.wis.data.dao.IEventManager;
 import com.org.wis.data.domain.ArtistJob;
 import com.org.wis.data.domain.BookerJob;
+import com.org.wis.data.domain.Event;
+import com.org.wis.data.domain.Location;
 import com.org.wis.data.domain.User;
 
 @Service
@@ -23,6 +26,9 @@ public class SearchServiceImpl implements SearchService {
 	
 	@Autowired
 	IBookerJobManager bookJobM;
+	
+	@Autowired
+	IEventManager eventM;
 	
 	public SearchServiceImpl() {		
 
@@ -42,7 +48,17 @@ public class SearchServiceImpl implements SearchService {
 		
 		return bookJobM.getBookerByLabel(name,nbrResults);
 	}
-
+	
+	@Transactional
+	public List<ArtistJob> searchArtistInArea(String name, int nbrResults, int lon, int lat, int radiusKm){
+		return null;//artJobM.getArtistsInRadius(name,nbrResults, lon, lat, radius);
+	}
+	
+	@Transactional
+	public List<Event> searchEventsInArea(String name, int nbrResults, int lon, int lat, int radiusKm){
+		return null;//eventM.getEventsInRadius(name, nbrResults, lon, lat, radius);
+	}
+	
 
 	public IArtistJobManager getArtJobM() {
 		return artJobM;

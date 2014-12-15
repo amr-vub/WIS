@@ -38,8 +38,18 @@ public class BookerJob {
 	@JoinTable(name="bookers_Event")
 	List<Event> events = new ArrayList<Event>();
 		
+	@ManyToOne @JoinColumn(nullable=false)	
+	Location bookerLocation;
 	
 	
+	public Location getBookerLocation() {
+		return bookerLocation;
+	}
+
+	public void setBookerLocation(Location bookerLocation) {
+		this.bookerLocation = bookerLocation;
+	}
+
 	public User getBookerUser() {
 		return bookerUser;
 	}

@@ -21,19 +21,21 @@ public class UserAuthentication {
 
 	@Id
 	int userAuthentication;
+
+	@Column
+	String password;
 	
 	@Column
 	String username;
 	
-	@Column
-	String password;
-	
-	@Column @Temporal(value = TemporalType.DATE)
-	Date lasetLogin;
-	
-	@Column
-	String email;
-	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	@OneToOne @JoinColumn(nullable=false)
 	User user;		
 	
@@ -54,14 +56,6 @@ public class UserAuthentication {
 		this.userAuthentication = userAuthentication;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -70,20 +64,6 @@ public class UserAuthentication {
 		this.password = password;
 	}
 
-	public Date getLasetLogin() {
-		return lasetLogin;
-	}
 
-	public void setLasetLogin(Date lasetLogin) {
-		this.lasetLogin = lasetLogin;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 		
 }

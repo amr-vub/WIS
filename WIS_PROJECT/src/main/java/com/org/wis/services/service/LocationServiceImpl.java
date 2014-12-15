@@ -41,7 +41,8 @@ public class LocationServiceImpl implements LocationService {
 	public void updateLocation(Location updatedLo) {
 		Location dbLo = locationM.getLocationById(updatedLo.getLocationId());
 		dbLo.setPlaceName(updatedLo.getPlaceName());
-		dbLo.setCoordenate(updatedLo.getCoordenate());
+		dbLo.setLon(updatedLo.getLon());
+		dbLo.setLat(updatedLo.getLat());
 		
 		locationM.updateLocation(dbLo);
 		

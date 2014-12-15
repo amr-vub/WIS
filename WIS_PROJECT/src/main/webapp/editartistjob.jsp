@@ -27,6 +27,9 @@
 		<div class="content">
 			<form:input path="Aliase" type="text" name="title" class="input" placeholder="Alias (optional)" spellcheck="false"/>
             <form:textarea path="Description" form="login-form" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
+          	<form:input path ="ArtLocation.Lon" name="longitude" type="text" class="input longitude" placeholder="longitude" spellcheck="false"/>
+    		<form:input path ="ArtLocation.Lat" name="latitude" type="text" class="input latitude" placeholder="latitude" spellcheck="false"/>
+    		
             <form:input path="SondCloudLink" type="text" name="soundcloud-link" class="input" placeholder="Soundcloud link (optional)" spellcheck="false"/>
     	</div>
     

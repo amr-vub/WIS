@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.org.wis.data.domain.ArtistJob;
 import com.org.wis.data.domain.BookerJob;
 import com.org.wis.data.domain.Location;
 import com.org.wis.data.domain.User;
@@ -37,11 +38,8 @@ public class EditBookerJobController {
 	
 	@RequestMapping(value = "/bookerjob/add.do", method = RequestMethod.POST)
 	public String saveBookerJobDetails(@ModelAttribute("bookerjob") BookerJob newBJ, @ModelAttribute("id") int id) throws Exception {
-		User u = userS.getUserById(id);
-		u.getBookerJob().add(newBJ);
-		newBJ.setBookerUser(u);
-		userS.updateUser(u);
-		bookerS.saveBookerJob(newBJ);
+		
+		bookerS.addBookerJob(id, newBJ);
 		
 		return "redirect:/search.do";
 	}
@@ -51,6 +49,8 @@ public class EditBookerJobController {
 		if(id !=null){		//user logged in
 			BookerJob bj = new BookerJob();
 			Location l = new Location();
+			l.getBookerJobs().add(bj);
+			bj.setBookerLocation(l);
 			model.addAttribute("bookerjob", bj);
 			return "addbookerjob";
 		}else return "redirect:/login.do";
@@ -59,7 +59,7 @@ public class EditBookerJobController {
 	
 	@RequestMapping(value = "/bookerjob/{bookerjobid}/edit.do", method = RequestMethod.GET)
 	public String getBookerJobDetails(Model model, @ModelAttribute("id") String id, @PathVariable int bookerjobid) {
-		
+	
 		if(id !=null){		//user logged in
 			BookerJob bj = bookerS.getBookerJobById(bookerjobid);
 			if(bj != null){
@@ -72,11 +72,11 @@ public class EditBookerJobController {
 	
 	@RequestMapping(value = "/bookerjob/{bookerjobid}/edit.do", method = RequestMethod.POST)
 	public String updateBookerJobDetails(@ModelAttribute("bookerjob") BookerJob updatedBJ, @ModelAttribute("id") String id, @PathVariable int bookerjobid) throws Exception {
-		System.out.println("bookerjobid" + updatedBJ.getBookerJob());
-		updatedBJ.setBookerJob(bookerjobid);
-		System.out.println("bookerjobid" + updatedBJ.getBookerJob());
-		bookerS.updateBookerJob(updatedBJ);
 		
+		if(id !=null){		//user logged in
+			updatedBJ.setBookerJob(bookerjobid);
+			bookerS.updateBookerJob(updatedBJ);
+		}
 		return "redirect:/search.do";
 	}
 	

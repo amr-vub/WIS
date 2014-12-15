@@ -24,13 +24,26 @@ public class Location {
 
 	@Column
 	double lat;
-	
+
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "artLocation")
 	List<ArtistJob> artistJobs = new ArrayList<ArtistJob>();
+	
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bookerLocation")
+	List<BookerJob> bookerJobs = new ArrayList<BookerJob>();
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "location")
 	List<Place> places = new ArrayList<Place>();
 	
+	
+	
+	public List<BookerJob> getBookerJobs() {
+		return bookerJobs;
+	}
+
+	public void setBookerJobs(List<BookerJob> bookerJobs) {
+		this.bookerJobs = bookerJobs;
+	}
+
 	public List<ArtistJob> getArtistJobs() {
 		return artistJobs;
 	}
@@ -78,6 +91,8 @@ public class Location {
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
+
+	
 		
 	
 }
