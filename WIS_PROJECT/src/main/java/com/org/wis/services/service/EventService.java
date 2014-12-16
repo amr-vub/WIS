@@ -18,5 +18,7 @@ Event getEventById(int EventID);
 	
 	void deleteEvent(int uid, int EventID);
 	
+	void addArtistToEvent(int aid, int EventID);
+	void addBookerToEvent(int bid, int EventID);
 	
 }

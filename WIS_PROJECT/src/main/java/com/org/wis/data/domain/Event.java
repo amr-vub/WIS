@@ -52,7 +52,7 @@ public class Event {
 	@ManyToMany(mappedBy="events")
 	List<BookerJob> eventsBookers = new ArrayList<BookerJob>();
 
-	@JsonIgnore
+	
 	@ManyToOne @JoinColumn(nullable=true)
 	Location eventLocation;
 	

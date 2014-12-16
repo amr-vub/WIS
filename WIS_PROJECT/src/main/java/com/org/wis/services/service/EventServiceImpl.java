@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.org.wis.data.dao.IArtistJobManager;
+import com.org.wis.data.dao.IBookerJobManager;
 import com.org.wis.data.dao.IEventManager;
 import com.org.wis.data.dao.IUserManager;
 import com.org.wis.data.domain.ArtistJob;
@@ -22,6 +24,12 @@ public class EventServiceImpl implements EventService {
 	
 	@Autowired
 	IUserManager userM;
+	
+	@Autowired
+	IBookerJobManager bookM;
+	
+	@Autowired
+	IArtistJobManager artistM;
 
 	@Transactional(readOnly = true)
 	public Event findEventById(int EventID) {
@@ -41,6 +49,8 @@ public class EventServiceImpl implements EventService {
 	public void updateEvent(Event updatedEv) {
 		Event dbEv = eventM.findEventById(updatedEv.getEventID());
 		dbEv.setDescription(updatedEv.getDescription());
+		//update all dates
+		
 		//dbEv.setEventDate(updatedEv.getEventDate());
 		
 		eventM.updateEvent(dbEv);
@@ -76,6 +86,25 @@ public class EventServiceImpl implements EventService {
 		return eventM.findEventById(eventID);
 	}
 
+	@Transactional
+	public void addArtistToEvent(int aid, int eid) {
+		Event e = eventM.findEventById(eid);
+		e.getEventsArts().add(artistM.getArtistJobById(aid));	
+		ArtistJob a= artistM.getArtistJobById(aid);
+		a.getEvents().add(e);
+		eventM.updateEvent(e);
+		artistM.updateArtistJob(a);
+	}
 	
+	@Transactional
+	public void addBookerToEvent(int bid, int eid) {
+		Event e = eventM.findEventById(eid);
+		e.getEventsBookers().add(bookM.getBookerJobById(bid));
+		BookerJob b= bookM.getBookerJobById(bid);
+		b.getEvents().add(e);
+		eventM.updateEvent(e);
+		bookM.updateBookerJob(b);
+	}
+
 
 }
