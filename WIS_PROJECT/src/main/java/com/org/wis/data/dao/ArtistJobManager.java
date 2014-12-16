@@ -34,8 +34,9 @@ public class ArtistJobManager implements IArtistJobManager{
 	public List<ArtistJob> getArtistByAlias(String alias, int nbrResults)
 	{
 		List<ArtistJob> ret = (List<ArtistJob>) getSessionFactory().getCurrentSession()
-				.createQuery("SELECT u FROM ArtistJob u WHERE u.aliase LIKE :aliase")
-				.setParameter("aliase", alias).setMaxResults(nbrResults).list();
+				.createQuery("SELECT u FROM ArtistJob u WHERE u.aliase LIKE ?")
+				.setString(0, "%"+alias+"%").setMaxResults(nbrResults).list();
+		
 		return ret;
 	}
 	
