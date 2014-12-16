@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class Event {
 
@@ -38,16 +40,19 @@ public class Event {
 	@Column
 	String description;
 
-	
+	@JsonIgnore
 	@ManyToMany(mappedBy="userEvent")
 	List<User> eventsUser = new ArrayList<User>();
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="events")
 	List<ArtistJob> eventsArts = new ArrayList<ArtistJob>();	
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="events")
 	List<BookerJob> eventsBookers = new ArrayList<BookerJob>();
 
+	@JsonIgnore
 	@ManyToOne @JoinColumn(nullable=true)
 	Location eventLocation;
 	

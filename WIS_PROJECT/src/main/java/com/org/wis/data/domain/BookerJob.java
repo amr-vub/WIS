@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class BookerJob {
 
@@ -31,9 +33,11 @@ public class BookerJob {
 	@Column
 	String description;
 
+	@JsonIgnore
 	@ManyToOne @JoinColumn(nullable=false)	
 	User bookerUser;
 	
+	@JsonIgnore
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="bookers_Event")
 	List<Event> events = new ArrayList<Event>();
