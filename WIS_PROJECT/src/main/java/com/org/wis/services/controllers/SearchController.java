@@ -46,6 +46,13 @@ public class SearchController {
 		mapper = new ObjectMapper();
 	}
 	
+	@RequestMapping(value = "/search/user/{userid}.do")
+	public @ResponseBody String getUser(@ModelAttribute("id") int id, @PathVariable int userid) throws Exception{
+		
+		User u = userS.getUserById(userid);
+		return mapper.writeValueAsString(u);
+	}
+	
 	@RequestMapping(value = "/search/user.do")
 	public @ResponseBody String getUser(@ModelAttribute("id") int id) throws Exception{
 		
