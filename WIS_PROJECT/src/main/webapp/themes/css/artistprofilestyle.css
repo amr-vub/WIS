@@ -48,13 +48,7 @@ HEADER
 
 /*******************
 CONTENT
-******************
-.coordinate {
-	visibility: inline;
-	max-height: 10px;
-	max-width: 10px;
-}*/
-
+*******************/
 .login-form .content {
 	padding: 0 30px 20px 30px;
 	font-size: 14px;

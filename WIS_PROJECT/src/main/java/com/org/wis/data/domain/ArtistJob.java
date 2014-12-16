@@ -39,8 +39,7 @@ public class ArtistJob {
 	
 	@Column
 	int rankingValue;
-	
-	@JsonIgnore
+		
 	@ManyToOne @JoinColumn(nullable=false)	
 	User artUser;
 	

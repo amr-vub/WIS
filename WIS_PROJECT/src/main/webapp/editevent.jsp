@@ -51,6 +51,7 @@
     	<script>
   	    $(function(){
 	        $("#geocomplete").geocomplete({
+	        	details: "form",
           		types: ["geocode", "establishment"]});
       	    });
 

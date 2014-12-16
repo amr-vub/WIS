@@ -1,29 +1,33 @@
 /*******************
 WINDOW WRAPPERS
 *******************/
+
+
 #map-canvas {
 	/*background: url('../images/dots.png') center center fixed, url('../images/googlemaps.jpg') center center no-repeat fixed #252326;*/
-	position: absolute;
+	position: relative;
 
-    height: 100%;
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-    background-color: black !important
+	top:682px;
+	left:50%;
+    height: 301px;
+    width: 360px;
+    margin-left: -160px;
+    background-color: black !important;
+    border-radius: 5px;
 }
 
 #search-view-wrapper {
-	width: 400px;
-	height: 300px;
+	width: 360px;
+	height: 100px;
 	position: absolute;
 	left: 50%;
-	top: 700px;
-	margin-left: -200px;
+	top: 994px;
+	margin-left: -160px;
 }
 
 .search-form {
 	width: 100%;
-	height: 60px;
+	height: 100%;
 	margin: 0 auto;
 	position: relative;
 	border-radius: 5px;
@@ -31,11 +35,10 @@ WINDOW WRAPPERS
 
 #object-view-wrapper {
 	width: 400px;
-	height: 75%;
 	position: absolute;
 	left: 50%;
-	top: 60px;
-	margin-left: -200px;
+	top: 100px;
+	margin-left: -160px;
 }
 
 .object-view {
@@ -48,120 +51,254 @@ WINDOW WRAPPERS
 /*
 SEARCH
 */
+.search-form {
+	z-index:5;
+}
 .search-form .basic {
-	padding: 5px 5px 5px 5px;
+	padding: 10px 30px 10px 30px;
+}
+
+.search-form .basic .search-button {
+	padding: 15px 15px 15px 15px;
+	margin-left: 7px;
 }
 
 .search-form .basic .input {
-	width: 200px;
+	padding: 15px 15px 15px 15px;
+	width: 205px;
 }
 
-/*
-OBJECT VIEW
-*/
-.object-view .general-data .image {
-	position:absolute;
-	left: 0px;
+.search-form .basic .wide {
+	padding: 15px 15px 15px 15px;
+	width: 300px;
+	margin-bottom: 10px;
+}
+
+.results {
+	width: 190px;
+	position:relative;
 	top: 0px;
-	width: 80px;
-	height: 80px;
+	left:50px;
+	padding: 10px 30px 10px 30px;
 }
 
-.object-view .general-data .image .user-pic {
-	border-radius: 10px;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-}
-
-.object-view .general-data .name {
-	position:absolute;
-	left:80px;
-	top:15px;
-	width: 300px;
-
-	padding: 5px 5px 5px 5px;
-	font-family: 'HelveticaNeue-Light', serif;
-	font-weight: 300;
-	font-size: 28px;
-	line-height: 34px;
-	color: #414848;
-	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
-
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-
-	background: #f3f3f3;
-
-	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-}
-
-.object-view .job-list {
-	position:absolute;
-	top:70px;
-	left:85px;
-
-	width: 300px;
-
-	font-weight: 400;
-}
-
-.object-view .job-data {
-	position: absolute;
-	top: 117px;
-	clear:left;
-}
-
-.object-view .job-data .image {
-	float:left;
-	width: 80px;
-	height: 80px;
-	color: #9d9e9e;
-}
-
-.object-view .job-data .image .job-pic {
-	border-radius: 10px;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-}
-
-.object-view .job-data .name{
-	float:left;
-	width: 300px;
-
-	padding: 5px 5px 5px 5px;
+.result .title{
 	font-family: 'HelveticaNeue-Light', serif;
 	font-weight: 300;
 	font-size: 20px;
 	line-height: 34px;
 	color: #414848;
-	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
-	margin-left: 80px;
-	margin-top: -73px;
+	padding-top: 10px;
+	border-bottom: 1px solid #fff;
 
-	background: #f3f3f3;
-	border-top-right-radius: 5px;
+}
+.result .short-description{
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 400;
+	font-size: 12px;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+
+	border-radius: 5px;
 	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
-.object-view .job-data .info {
-	float:left;
-	
-	margin-top: 0px;
-	width: 300px;
-	padding: 5px 5px 5px 5px;
-	margin-left: 80px;
-	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	font-weight: 400;
-	font-size: 12px;
-
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+/*
+OBJECT VIEW
+*/
+.event-view{
+	position:absolute;
+	top:0px;
+	left:0px;	
 }
+.event-view .general-data {
+	position:relative;
+	height: 46px;
+	margin-bottom: 10px;
+}
+	.event-view .general-data .edit-button {
+		position:absolute;
+		left: -130px;
+		top: -15px;
+		z-index: 3;
+	}
+	.event-view .general-data .image {
+		position:absolute;
+		left: -90px;
+		top: -15px;
+		width: 80px;
+		height: 80px;
+	}
+	.event-view .general-data .image .user-pic {
+		border-radius: 5px;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	}
+	.event-view .general-data .name {
+		position:absolute;
+		width: 300px;
+
+		padding: 5px 30px 5px 30px;
+		font-family: 'HelveticaNeue-Light', serif;
+		font-weight: 300;
+		font-size: 28px;
+		line-height: 34px;
+		color: #414848;
+		text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+
+		border-radius: 5px;
+
+		background: #f3f3f3;
+
+		box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	}
+	.event-view .general-data .info {
+		position:absolute;
+		top: 55px;
+		width: 300px;
+		padding: 10px 30px 20px 30px;
+
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+		font-weight: 400;
+		font-size: 12px;
+		text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+
+		border-radius: 5px;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	}
+
+.user-view{
+	position:absolute;
+	top:0px;
+	left:0px;
+}
+.user-view .general-data {
+	position:relative;
+	height: 46px;
+	margin-bottom:9px;
+}
+	.user-view .general-data .edit-button {
+		position:absolute;
+		left: -130px;
+		top: -15px;
+		z-index: 3;
+	}
+	.user-view .general-data .image {
+		position:absolute;
+		left: -90px;
+		top: -15px;
+		width: 80px;
+		height: 80px;
+	}
+
+	.user-view .general-data .image .user-pic {
+		border-radius: 5px;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	}
+	.user-view .general-data .name {
+		position:absolute;
+		width: 300px;
+
+		padding: 5px 30px 5px 30px;
+		font-family: 'HelveticaNeue-Light', serif;
+		font-weight: 300;
+		font-size: 28px;
+		line-height: 34px;
+		color: #414848;
+		text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+
+		border-radius: 5px;
+
+		background: #f3f3f3;
+
+		box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	}
+
+
+.user-view .job-list {
+	position:relative;
+	height: 40px;
+	width: 300px;
+
+	margin-bottom: 8px;
+}
+	.user-view .job-list .job-icon  {
+		width: 30px;
+		height: 28px;
+		z-index: 3;
+		border-radius: 5px;
+		margin-right: 3px;
+	}
+
+
+.user-view .job-data {
+	position: absolute;
+	top:105px;
+}
+	.user-view .job-data .image {
+		position: absolute;
+		top:-15px;
+		left:-90px;
+		width: 80px;
+		height: 80px;
+		color: #9d9e9e;
+	}
+	.user-view .job-data .edit-button {
+		position:absolute;
+		left: -130px;
+		top: -15px;
+		z-index: 3;
+	}
+	.user-view .job-data .image .job-pic {
+		border-radius: 5px;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	}
+	.user-view .job-data .info {
+		width: 300px;
+		padding: 10px 30px 20px 30px;
+
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+		font-weight: 400;
+		font-size: 12px;
+		text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+
+		border-radius: 5px;
+		box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	}
+	.user-view .job-data .info .name {
+		font-family: 'HelveticaNeue-Light', serif;
+		font-weight: 300;
+		font-size: 20px;
+		line-height: 34px;
+		color: #414848;
+	}
+	.user-view .job-data .info .description {
+		overflow-y:scroll;
+	}
+	.user-view .job-data .info .player {
+		height:150px;
+		width:100%;
+	}
+
+	.user-view .artist-profile .info .description {
+		height:235px;
+	}
+	.user-view .booker-profile .info .description{
+		height:400px;
+	}
 
 

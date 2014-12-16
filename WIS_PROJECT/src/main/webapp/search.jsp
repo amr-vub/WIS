@@ -81,7 +81,7 @@
         var searchtermArtist = searchFormArtist.elements["searchterm"].value;
         $.get('${pageContext.request.contextPath}/search/artist/'+ nbrResults +'/'+ searchtermArtist +'.do', function(results) {
        		results = JSON.parse(results); 
-       		$('#searchResponseArtist').text("placename" + results[1].artLocation.placeName);
+       		$('#searchResponseArtist').text("placename" + results[0].artLocation.placeName);
         });
         e.preventDefault(); // prevent actual form submit
       });
