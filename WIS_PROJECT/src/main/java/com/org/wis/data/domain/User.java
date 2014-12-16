@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class User {
 
@@ -28,15 +30,19 @@ public class User {
 	@Column
 	String email;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy="user") 
 	UserAuthentication userAuthentication;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "artUser")
 	List<ArtistJob> artistJob = new ArrayList<ArtistJob>();
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bookerUser")
 	List<BookerJob> bookerJob = new ArrayList<BookerJob>();
 	
+	@JsonIgnore
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="User_Event")
 	List<Event> userEvent = new ArrayList<Event>();
