@@ -84,19 +84,20 @@ public class ArtistJobServiceImpl implements ArtistJobService {
 	@Transactional
 	public void addRanking(int artistJobID, int rankValue, int uid) {
 		
-		ArtistJob aj = artJobM.getArtistJobById(artistJobID);
-		Ranking r = new Ranking();
-		r.setRankValue(rankValue);
-		r.setRankArtistJob(aj);
-		List<Ranking> rankings =aj.getRankings();
-		rankings.add(r);
-		int sum=0;
-		for(Ranking ranking : rankings){
-			sum += ranking.getRankValue();
+		if(artJobM.getArtistJobById(artistJobID) != null){
+			ArtistJob aj = artJobM.getArtistJobById(artistJobID);
+			Ranking r = new Ranking();
+			r.setRankValue(rankValue);
+			r.setRankArtistJob(aj);
+			List<Ranking> rankings =aj.getRankings();
+			rankings.add(r);
+			int sum=0;
+			for(Ranking ranking : rankings){
+				sum += ranking.getRankValue();
+			}
+			aj.setRankingValue(sum/rankings.size());
+			artJobM.updateArtistJob(aj);
 		}
-		System.out.println("sum" + sum + "size" +rankings.size());
-		aj.setRankingValue(sum/rankings.size());
-		artJobM.updateArtistJob(aj);
 	}
 	
 	@Transactional
@@ -104,6 +105,4 @@ public class ArtistJobServiceImpl implements ArtistJobService {
 		return artJobM.getArtistJobById(artistJobID).getRankingValue();
 	}
 
-	
-	
 }

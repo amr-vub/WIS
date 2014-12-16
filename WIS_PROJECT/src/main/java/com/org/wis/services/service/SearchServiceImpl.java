@@ -1,5 +1,6 @@
 package com.org.wis.services.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,9 +38,9 @@ public class SearchServiceImpl implements SearchService {
 	@Transactional
 	public List<ArtistJob> searchArtist(String alias, int nbrResults) {
 	
-		List<ArtistJob> m = artJobM.getArtistByAlias(alias, nbrResults);	
+		List<ArtistJob> artistList = artJobM.getArtistByAlias(alias, nbrResults);	
 		
-		return m;
+		return artistList;
 	}
 
 	@Transactional
@@ -51,28 +52,46 @@ public class SearchServiceImpl implements SearchService {
 	@Transactional
 	public List<Event> searchEvent(String searchterm, int nbrResults) {
 		
-		return null;//bookJobM.getEventByDescription(searchterm,nbrResults);
+		return eventM.getEventBytitle(searchterm);
 	}
 	
 	@Transactional
-	public List<ArtistJob> searchArtistInArea(String searchterm, int nbrResults, double lon, double lat, double radiusKm){
+	public List<ArtistJob> searchArtistInArea(String searchterm, int nbrResults, double lon, double lat, double radiuskm){
+		
+		
+		
+		
 		//Thats actually tricky, because the distance in km of one degree longitude depends on the latitude
 		//near the equator its much longer than near the pole.. use this formular
 		//dist between two points (Radius of earth 6317km):
 		// dist = arccos(sin(lat1) · sin(lat2) + cos(lat1) · cos(lat2) · cos(lon1 - lon2))* 6317km
 		// http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates
-		
-		return null;//artJobM.getArtistsInRadius(searchterm,nbrResults, lon, lat, radius);
+		double minlon=1;
+		double maxlon = 15;
+		double minlat = 1;
+		double maxlat=15;
+		return artJobM.searchArtistInArea(searchterm, nbrResults, minlon, maxlon, minlat, maxlat);//artJobM.getArtistsInRadius(searchterm,nbrResults, lon, lat, radius);
 	}
 	
 	@Transactional
 	public List<BookerJob> searchBookerInArea(String searchterm, int nbrResults, double lon, double lat, double radiusKm){
-		return null;//artJobM.getBookerInRadius(searchterm,nbrResults, lon, lat, radius);
+		searchterm = "sede";
+		double minlon=1;
+		double maxlon = 15;
+		double minlat = 1;
+		double maxlat=15;
+		List <BookerJob> bjs = bookJobM.searchArtistInArea(searchterm, nbrResults, minlon, maxlon, minlat, maxlat);
+		return bjs;
 	}
 	
 	@Transactional
 	public List<Event> searchEventsInArea(String searchterm, int nbrResults, double lon, double lat, double radiusKm){
-		return null;//eventM.getEventsInRadius(searchterm, nbrResults, lon, lat, radius);
+		double minlon=1;
+		double maxlon = 15;
+		double minlat = 1;
+		double maxlat=15;
+		return eventM.searchEventsInArea(searchterm, nbrResults, minlon, maxlon, minlat, maxlat);
+		
 	}
 	
 	public IArtistJobManager getArtJobM() {
@@ -90,4 +109,6 @@ public class SearchServiceImpl implements SearchService {
 	public void setBookJobM(IBookerJobManager bookJobM) {
 		this.bookJobM = bookJobM;
 	}
+
+	
 }
