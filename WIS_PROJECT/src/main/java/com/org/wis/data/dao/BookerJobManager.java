@@ -34,7 +34,8 @@ public class BookerJobManager implements IBookerJobManager{
 	public List<BookerJob> getBookerByLabel(String label, int nbrResults)
 	{
 		List<BookerJob> ret = (List<BookerJob>) getSessionFactory().getCurrentSession()
-				.createQuery("SELECT u FROM BookerJob u WHERE u.label LIKE :label").setParameter("label", label)
+				.createQuery("SELECT u FROM BookerJob u WHERE u.label LIKE ?").
+				setString(0, "%"+label+"%").setParameter("label", label)
 						.setMaxResults(nbrResults).list();
 		return ret;
 	}
