@@ -24,6 +24,7 @@ import com.org.wis.data.domain.Location;
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
 import com.org.wis.services.service.ArtistJobService;
+import com.org.wis.services.service.EventService;
 import com.org.wis.services.service.SearchService;
 import com.org.wis.services.service.userService;
 
@@ -39,6 +40,9 @@ public class SearchController {
 	
 	@Autowired 
 	userService userS;
+	
+	@Autowired
+	EventService eventS;
 	
 	ObjectMapper mapper;
 	
@@ -132,4 +136,21 @@ public class SearchController {
 		artistS.addRanking(artistJobId, artistJobRanking, uid);
 		return mapper.writeValueAsString(artistS.getRanking(artistJobId));
 	}
+	
+
+	@RequestMapping(value = "/search/subscribeartist/{aid}/{eid}.do")
+	public @ResponseBody String subscribeArtist(@ModelAttribute("id") int uid, 
+			@PathVariable int aid, @PathVariable int eid) throws Exception {
+		eventS.addArtistToEvent(aid, eid);
+		return mapper.writeValueAsString("ok");
+	}
+	
+	@RequestMapping(value = "/search/subscribebooker/{bid}/{eid}.do")
+	public @ResponseBody String subscribeBooker(@ModelAttribute("id") int uid, 
+			@PathVariable int bid, @PathVariable int eid) throws Exception {
+		
+		eventS.addBookerToEvent(bid, eid);
+		return mapper.writeValueAsString("ok");
+	}
+	
 }

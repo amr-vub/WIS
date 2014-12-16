@@ -14,6 +14,8 @@ public interface IEventManager {
 	
 	void deleteEvent(Event event);
 	
-	public List<Event> searchArtistInArea(String searchterm, int nbrResults,
+	public List<Event> searchEventsInArea(String searchterm, int nbrResults,
 			double minlon, double maxlon, double minlat, double maxlat);
+	
+	public List<Event> getEventBytitle(String title);
 }

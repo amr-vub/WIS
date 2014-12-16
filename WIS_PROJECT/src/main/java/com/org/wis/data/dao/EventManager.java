@@ -40,7 +40,7 @@ public class EventManager implements IEventManager{
 		this.sessionFactory = sessionFactory;
 	}
 
-	public List<Event> searchArtistInArea(String searchterm, int nbrResults,
+	public List<Event> searchEventsInArea(String searchterm, int nbrResults,
 			double minlon, double maxlon, double minlat, double maxlat) {
 		
 		List<Event> lis = (List<Event>) getSessionFactory().getCurrentSession()
@@ -49,6 +49,14 @@ public class EventManager implements IEventManager{
 		.setParameter("longLow", minlon).setParameter("langHigh", maxlon).
 		setParameter("latLow", minlat).setParameter("latHigh", maxlat).setMaxResults(nbrResults);
 		
+		return lis;
+	}
+
+	public List<Event> getEventBytitle(String title) {
+		
+		List<Event> lis = (List<Event>) getSessionFactory().getCurrentSession().
+				createQuery("SELECT u FROM Event u WHERE u.title LIKE ?").setString(0, "%"+title+"%").list();
+				
 		return lis;
 	}
 
