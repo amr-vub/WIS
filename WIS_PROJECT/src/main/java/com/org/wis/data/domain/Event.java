@@ -38,6 +38,7 @@ public class Event {
 	@Column
 	String description;
 
+	
 	@ManyToMany(mappedBy="userEvent")
 	List<User> eventsUser = new ArrayList<User>();
 	

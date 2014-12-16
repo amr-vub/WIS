@@ -14,6 +14,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class ArtistJob {
 
@@ -38,15 +40,18 @@ public class ArtistJob {
 	@Column
 	int rankingValue;
 	
+	@JsonIgnore
 	@ManyToOne @JoinColumn(nullable=false)	
 	User artUser;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "rankArtistJob")
 	List<Ranking> rankings = new ArrayList<Ranking>(); 
 	
 	@ManyToOne @JoinColumn(nullable=false)	
 	Location artLocation;
 	
+	@JsonIgnore
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="arts_Event")
 	List<Event> events = new ArrayList<Event>();

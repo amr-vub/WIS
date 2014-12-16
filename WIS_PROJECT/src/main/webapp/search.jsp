@@ -49,6 +49,28 @@
     <div id="newranking"> </div>
     <br/>
     
+    <h2>Get user</h2>
+    <form id="getuser">
+      <label for="getuser">get user </label>
+
+      <input type="submit" value="get user" /> <br /><br/>
+    </form>
+    
+    user:
+    <div id="user"> </div>
+    <br/>
+    
+    <h2>Get artistjobs</h2>
+    <form id="getartistjob">
+      <label for="getartistjob">get aristjobs </label>
+
+      <input type="submit" value="get artistjobs" /> <br /><br/>
+    </form>
+    
+    user:
+    <div id="artistjob"> </div>
+    <br/>
+    
 <script type="text/javascript">
    
     $(document).ready(function() {
@@ -59,7 +81,7 @@
         var searchtermArtist = searchFormArtist.elements["searchterm"].value;
         $.get('${pageContext.request.contextPath}/search/artist/'+ nbrResults +'/'+ searchtermArtist +'.do', function(results) {
        		results = JSON.parse(results); 
-       		$('#searchResponseArtist').text("result1: " + results[0].aliase + "result2:" + results[1].aliase + "result2:" + results[2].aliase);
+       		$('#searchResponseArtist').text("");
         });
         e.preventDefault(); // prevent actual form submit
       });
@@ -85,6 +107,24 @@
         });
         e.preventDefault(); // prevent actual form submit
       });
+   
+   
+      $('#getuser').submit(function(e) {
+        var artistjobid = 1;
+        $.get('${pageContext.request.contextPath}/search/user.do', function(results) {
+       		results = JSON.parse(results); 
+       		$('#user').text("user: " + results);
+        });
+        e.preventDefault(); // prevent actual form submit
+      });
+      
+      $('#getartistjob').submit(function(e) {
+          $.get('${pageContext.request.contextPath}/search/getartistjobs.do', function(results) {
+         		results = JSON.parse(results); 
+         		$('#artistjob').text("artistjob: " + results);
+          });
+          e.preventDefault(); // prevent actual form submit
+        });
    
     });
        

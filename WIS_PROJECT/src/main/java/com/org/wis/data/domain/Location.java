@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 @Entity
 public class Location {
 
@@ -25,12 +27,15 @@ public class Location {
 	@Column
 	double lat;
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "artLocation")
 	List<ArtistJob> artistJobs = new ArrayList<ArtistJob>();
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bookerLocation")
 	List<BookerJob> bookerJobs = new ArrayList<BookerJob>();
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "eventLocation")
 	List<Event> places = new ArrayList<Event>();
 	

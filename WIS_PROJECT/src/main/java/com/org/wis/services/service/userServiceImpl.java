@@ -1,11 +1,17 @@
 package com.org.wis.services.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.org.wis.data.dao.IUserAuthentcationManager;
 import com.org.wis.data.dao.IUserManager;
+import com.org.wis.data.domain.ArtistJob;
+import com.org.wis.data.domain.BookerJob;
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
 
@@ -18,8 +24,10 @@ public class userServiceImpl implements userService{
 	@Autowired
 	private IUserAuthentcationManager userAM;
 	
+	ObjectMapper mapper;
 	
-	public userServiceImpl(){	
+	public userServiceImpl(){
+		mapper = new ObjectMapper();
 	}
 	
 	public userServiceImpl(IUserManager userM){
@@ -41,10 +49,20 @@ public class userServiceImpl implements userService{
 	
 	@Transactional(readOnly = true)
 	public User getUserById(int id){
-		
+	
 		return userM.getUserById(id);
 	
 	}
+	
+	@Transactional
+	public List<ArtistJob> getUserArtistJobs(int uid){
+		
+		User u = userM.getUserById(uid);
+		List<ArtistJob> ajs = u.getArtistJob();
+		return ajs;
+	}
+	
+	
 	
 	@Transactional
 	public void updateUser(User updatedUser){
@@ -83,6 +101,5 @@ public class userServiceImpl implements userService{
 		userM.deleteUser(userM.getUserById(userid));
 		
 	}
-	
 	
 }
