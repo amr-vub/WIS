@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.org.wis.data.domain.ArtistJob;
+import com.org.wis.data.domain.BookerJob;
 import com.org.wis.data.domain.User;
 import com.org.wis.data.domain.UserAuthentication;
 
@@ -18,5 +19,6 @@ public interface userService {
 	public User getUserByEmail(String email);
 	public void updateUser(User user);
 	public List<ArtistJob> getUserArtistJobs(int uid);
+	public List<BookerJob> getUserBookerJob(int uid);
 	
 }

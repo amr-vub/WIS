@@ -42,7 +42,6 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "bookerUser")
 	List<BookerJob> bookerJob = new ArrayList<BookerJob>();
 	
-	@JsonIgnore
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="User_Event")
 	List<Event> userEvent = new ArrayList<Event>();

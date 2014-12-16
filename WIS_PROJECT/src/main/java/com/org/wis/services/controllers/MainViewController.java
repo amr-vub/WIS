@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.org.wis.data.domain.ArtistJob;
+import com.org.wis.data.domain.BookerJob;
 import com.org.wis.data.domain.User;
 import com.org.wis.services.service.userService;
 
-@SessionAttributes("viewId")
+@SessionAttributes({"Id", "viewId"})
 @Controller
 public class MainViewController {
 
@@ -37,13 +38,32 @@ public class MainViewController {
 		return "mainview";		
 	}
 	
-	@RequestMapping(value = "/mainview/user/{searchId}.do")
-	public @ResponseBody String getArtistJobs(@ModelAttribute("id") int id, 
-			@PathVariable int searchId, Model model) throws Exception{
+	@RequestMapping(value = "/mainview/user/getUser.do")
+	public @ResponseBody String getUser(@ModelAttribute("viewId") int viewId
+			) throws Exception{
 			
-		model.addAttribute("viewId", searchId);
+		User us = userservice.getUserById(viewId);
 		
-		return "mainview";
+		return mapper.writeValueAsString(us);
+	}
+	
+	@RequestMapping(value = "/mainview/user/getArtist.do")
+	public @ResponseBody String getArtistJobs(@ModelAttribute("viewId") int viewId
+			) throws Exception{
+			
+		
+		List<ArtistJob> lis = userservice.getUserArtistJobs(viewId);
+		
+		return mapper.writeValueAsString(lis);
+	}
+	
+	@RequestMapping(value = "/mainview/user/getBooker.do")
+	public @ResponseBody String getBooker(@ModelAttribute("viewId") int viewId
+			) throws Exception{
+					
+		List<BookerJob> lis = userservice.getUserBookerJob(viewId);
+		
+		return mapper.writeValueAsString(lis);
 	}
 	
 }

@@ -116,13 +116,29 @@ google.maps.event.addDomListener(window, 'load', initialize);
           $(document).ready(function(){
             $("#event-view").hide();
             $("#user-view").show();
+            
+            $.get('${pageContext.request.contextPath}/mainview/user/getUser.do', function(user) {
+	        	user = JSON.parse(user);
+	        	alert("hello");
+	        	document.getElementById("user-name").innerHTML = user.userName;
             });
+            $.get('${pageContext.request.contextPath}/mainview/user/getArtist.do', function(artist) {
+            	artist = JSON.parse(artist);
+	        	alert(artist[0].aliase);
+	        	//document.getElementById("user-name").innerHTML = artist.userName;
+            });
+            $.get('${pageContext.request.contextPath}/mainview/user/getBooker.do', function(bookers) {
+            	bookers = JSON.parse(bookers);
+	        	alert(bookers[0].label);
+	        	//document.getElementById("user-name").innerHTML = artist.userName;
+            });
+          });
     	</script>
 
 		<div id="event-view" class="event-view">
 			<div class="general-data">
 				<div class="edit-button">
-					<a href="/WIS_PROJECT/editevent.do"><img class="button"
+					<a href="/WIS_PROJECT/event/1/edit.do"><img class="button"
 						src="themes/images/editicon.png"
 						alt="Error loading profile picture." width="20" height="20"></a>
 				</div>
@@ -168,7 +184,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 						alt="Error loading profile picture." width="80" height="80">
 						</div>
 
-				<div class="name panel">Chris Clark</div>
+				<div id="user-name" class="name panel">Chris Clark</div>
 			</div>
 			<div class ="job-list">
 				<script>

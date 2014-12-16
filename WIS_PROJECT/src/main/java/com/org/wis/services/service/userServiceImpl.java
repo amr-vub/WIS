@@ -50,7 +50,11 @@ public class userServiceImpl implements userService{
 	@Transactional(readOnly = true)
 	public User getUserById(int id){
 	
-		return userM.getUserById(id);
+		User us = userM.getUserById(id);
+		
+		us.getUserEvent().isEmpty(); //fetch eager				
+		
+		return us;
 	
 	}
 	
@@ -58,6 +62,12 @@ public class userServiceImpl implements userService{
 	public List<ArtistJob> getUserArtistJobs(int uid){
 		
 		User u = userM.getUserById(uid);
+		// trick around lazy fetch
+		List<ArtistJob> lis = u.getArtistJob();
+		for (int i = 0; i < lis.size(); i++) {
+			lis.isEmpty();
+			lis.get(i).getArtUser().getUserEvent().isEmpty();
+		}
 		List<ArtistJob> ajs = u.getArtistJob();
 		return ajs;
 	}
@@ -100,6 +110,21 @@ public class userServiceImpl implements userService{
 	public void deleteUser(int userid) {
 		userM.deleteUser(userM.getUserById(userid));
 		
+	}
+
+	@Transactional
+	public List<BookerJob> getUserBookerJob(int uid) {
+		
+		User u = userM.getUserById(uid);
+		// trick around lazy fetch
+		List<BookerJob> lis = u.getBookerJob();
+		for (int i = 0; i < lis.size(); i++) {
+			lis.isEmpty();
+			lis.get(i).getBookerUser().getUserEvent().isEmpty();
+		}
+		List<BookerJob> bjs = u.getBookerJob();
+		
+		return bjs;
 	}
 	
 }

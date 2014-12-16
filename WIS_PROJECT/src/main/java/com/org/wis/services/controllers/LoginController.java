@@ -24,7 +24,7 @@ import com.org.wis.services.service.userService;
  * 
  */
 
-@SessionAttributes("id")
+@SessionAttributes({"Id", "viewId"})
 @Controller
 public class LoginController{
 	
@@ -40,6 +40,7 @@ public class LoginController{
 		if(u != null){
 			//user login valid -> write id in session
 			model.addAttribute("id", u.getUserId());
+			model.addAttribute("viewId", u.getUserId());
 			//System.out.println(userA.getEmail() + userA.getPassword() + "   " + u);
 			return "redirect:/mainview.do";
 		}else{

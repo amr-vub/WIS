@@ -69,6 +69,7 @@ public class EditEventController {
 	
 	@RequestMapping(value = "/event/{eventid}/edit.do", method = RequestMethod.POST)
 	public String updateEvent(@ModelAttribute("event") Event updatedEv, @ModelAttribute("id") String id, @PathVariable int eventid) throws Exception {
+		System.out.println("editevent44444444444444");
 		updatedEv.setEventID(eventid);
 		eventS.updateEvent(updatedEv);
 		

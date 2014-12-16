@@ -3,19 +3,19 @@
 <head>
 
     <!--Stylesheets-->
-    <link href="css/globalstyle.css" rel="stylesheet" type="text/css" />
-    <link href="css/createeventstyle.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/jquery.timepicker.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.css" />
+    <link href="../../themes/css/globalstyle.css" rel="stylesheet" type="text/css" />
+    <link href="../../themes/css/createeventstyle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../themes/css/jquery.timepicker.css" />
+    <link rel="stylesheet" type="text/css" href="../../themes/css/bootstrap-datepicker.css" />
 
     <!--Scripts-->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-    <script type="text/javascript" src="themes/js/jquery.geocomplete.js"></script>
-    <script type="text/javascript" src="themes/js/logger.js"></script>
-    <script type="text/javascript" src="themes/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="themes/js/jquery.timepicker.js"></script>
-    <script type="text/javascript" src="themes/js/jquery.datepair.js"></script>
+    <script type="text/javascript" src="../../themes/js/jquery.geocomplete.js"></script>
+    <script type="text/javascript" src="../../themes/js/logger.js"></script>
+    <script type="text/javascript" src="../../themes/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="../../themes/js/jquery.timepicker.js"></script>
+    <script type="text/javascript" src="../../themes/js/jquery.datepair.js"></script>
 
 </head>
 
@@ -25,7 +25,7 @@
 <div class="heading">ArtScout</div>
     
 <div id="wrapper">
-	<form:form name="login-form" class="login-form panel" action="edit.do" method="POST" modelAttribute="event">
+	<form:form id="form" name="login-form" class="login-form panel" action="edit.do" method="POST" modelAttribute="event">
 
 		<div class="header">
     		<h1>Event</h1>
@@ -36,12 +36,17 @@
 			<form:input path="title" name="event-title" type="text" class="input username" placeholder="Title" spellcheck="false"/>
             <form:textarea path="description" form="login-form" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
             <p id="datetime-inputs">
-                <form:input path="startDate" type="text" class="date start input" placeholder="Date"/>
-                <form:input path="startTime" type="text" class="time start input" placeholder="Time"/> to
-                <form:input path="endDate" type="text" class="date end input" placeholder="Date"/>
-                <form:input path="endTime" type="text" class="time end input" placeholder="Time"/>
+            <form:input path="eventStartDate" type="text" class="date start input" placeholder="Date"/>
+            <form:input path="eventStartTime" type="text" class="time start input" placeholder="Time"/> to
+            <form:input path="eventEndDate" type="text" class="date end input" placeholder="Date"/>
+            <form:input path="eventEndTime" type="text" class="time end input" placeholder="Time"/>
             </p>
-    		<input id="geocomplete" name="location" type="text" class="input" placeholder="Home Location" spellcheck="false"/>
+            <input id="geo-lat" path="eventLocation.lat" name="lat" type="text" value="" class="input"/>
+            <input id="geo-lon" path="eventLocation.lon" name="lng" type="text" value="" class="input"/>
+            <input name="query" type="hidden" value="true" class="input">
+            <form:input id="spring-lat" path="eventLocation.lat" name="lat" type="hidden" value="" class="input"/>
+            <form:input id="spring-lon" path="eventLocation.lon" name="lng" type="hidden" value="" class="input"/>
+    		<form:input path="eventLocation.placeName" id="geocomplete" name="location-name" type="text" class="input" placeholder="Home Location" spellcheck="false"/>
     	</div>
     
     	<div class="footer">
@@ -49,6 +54,15 @@
     	</div>
     	
     	<script>
+    	
+    	$('#form').submit(function ()
+    			
+    			{
+    			    $('#spring-lat').val($('#geo-lat').val());
+    			    $('#spring-lon').val($('#geo-lon').val());
+    			    $('#form').submit();
+    			    return false;
+    			});
   	    $(function(){
 	        $("#geocomplete").geocomplete({
 	        	details: "form",
@@ -66,7 +80,7 @@
             });
 
         var dateTimePair = document.getElementById('datetime-inputs');
-        var datepair = new Datepair(dateTimePair);
+        //var datepair = new Datepair(dateTimePair);
         </script>
 
 	</form:form>
