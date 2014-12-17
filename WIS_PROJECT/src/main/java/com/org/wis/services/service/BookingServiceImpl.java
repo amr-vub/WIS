@@ -11,11 +11,14 @@ import com.org.wis.data.dao.ArtistJobManager;
 import com.org.wis.data.dao.BookerJobManager;
 import com.org.wis.data.dao.IArtistJobManager;
 import com.org.wis.data.dao.IBookerJobManager;
+import com.org.wis.data.dao.IBookingRequestManager;
 import com.org.wis.data.dao.IEventManager;
 import com.org.wis.data.dao.IUserManager;
 import com.org.wis.data.dao.LocationManager;
 import com.org.wis.data.domain.ArtistJob;
 import com.org.wis.data.domain.BookerJob;
+import com.org.wis.data.domain.BookingRequest;
+import com.org.wis.data.domain.Event;
 import com.org.wis.data.domain.Location;
 import com.org.wis.data.domain.Ranking;
 import com.org.wis.data.domain.User;
@@ -40,8 +43,12 @@ public class BookingServiceImpl implements BookingService {
 	public void bookArtist(int bid, int aid, int eid) {
 		BookerJob bj = bookerM.getBookerJobById(bid);
 		ArtistJob aj = artJobM.getArtistJobById(aid);
-		Event e = eventM.getEventById(eid);
-		bookingM.addBookingRequest(bid, aid,eid);
+		Event e = eventM.findEventById(eid);
+		BookingRequest br = new BookingRequest();
+		br.setBrArtistJob(aj);
+		br.setBrBooker(bj);
+		br.setBrEvent(e);
+		bookingM.saveBr(br);
 	}
 
 }

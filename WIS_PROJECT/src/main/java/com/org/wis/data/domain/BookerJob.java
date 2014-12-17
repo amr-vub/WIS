@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -45,7 +46,18 @@ public class BookerJob {
 	@ManyToOne @JoinColumn(nullable=false)	
 	Location bookerLocation;
 	
+	@Column
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="brBooker")
+	BookingRequest brBooker;
 	
+	public BookingRequest getBrBooker() {
+		return brBooker;
+	}
+
+	public void setBrBooker(BookingRequest brBooker) {
+		this.brBooker = brBooker;
+	}
+
 	public Location getBookerLocation() {
 		return bookerLocation;
 	}

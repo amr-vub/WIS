@@ -13,6 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -55,8 +56,18 @@ public class ArtistJob {
 	@JoinTable(name="arts_Event")
 	List<Event> events = new ArrayList<Event>();
 	
+	@Column
+	@OneToOne(cascade = CascadeType.ALL, mappedBy="brArtistJob")
+	BookingRequest brArtist;
 	
-	
+	public BookingRequest getBrArtist() {
+		return brArtist;
+	}
+
+	public void setBrArtist(BookingRequest brArtist) {
+		this.brArtist = brArtist;
+	}
+
 	public User getArtUser() {
 		return artUser;
 	}
