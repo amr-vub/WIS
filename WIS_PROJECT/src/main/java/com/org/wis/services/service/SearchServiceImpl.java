@@ -38,6 +38,14 @@ public class SearchServiceImpl implements SearchService {
 	@Transactional
 	public List<ArtistJob> searchArtist(String alias, int nbrResults) {
 	
+		List<ArtistJob> m = artJobM.getArtistByAlias(alias, nbrResults);	
+				
+		
+		for (int i = 0; i < m.size(); i++) {
+		
+			m.get(i).getEvents().isEmpty();
+			m.get(i).getArtUser().getUserEvent().isEmpty();
+		}
 		List<ArtistJob> artistList = artJobM.getArtistByAlias(alias, nbrResults);	
 		
 		return artistList;
@@ -45,6 +53,14 @@ public class SearchServiceImpl implements SearchService {
 
 	@Transactional
 	public List<BookerJob> searchBooker(String searchterm, int nbrResults) {
+		
+		List<BookerJob> lis = bookJobM.getBookerByLabel(searchterm,nbrResults);
+		
+		for (int i = 0; i < lis.size(); i++) {
+		
+			lis.get(i).getEvents().isEmpty();
+			lis.get(i).getBookerUser().getUserEvent().isEmpty();
+		}		
 		
 		return bookJobM.getBookerByLabel(searchterm,nbrResults);
 	}
