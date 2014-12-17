@@ -38,9 +38,17 @@ public class MainViewController {
 	}
 	
 	@RequestMapping(value = "/mainview.do", method = RequestMethod.GET)
-	public  String mainViewRender(Model model){			
-					
+	public  String mainViewRender(Model model){											
+		
 		return "mainview";		
+	}
+	
+	@RequestMapping(value = "/mainview/home.do", method = RequestMethod.GET)
+	public  String homeRender(Model model){								
+		
+		model.addAttribute("viewevent",false);
+		
+		return "redirect:/mainview.do";		
 	}
 	
 	@RequestMapping(value = "/mainview/user/getUser.do")

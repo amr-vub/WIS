@@ -39,7 +39,7 @@ public class Event {
 	@Column
 	String eventEndTime;
 	
-	@Column
+	@Column(length=8192)
 	String description;
 
 	@JsonIgnore

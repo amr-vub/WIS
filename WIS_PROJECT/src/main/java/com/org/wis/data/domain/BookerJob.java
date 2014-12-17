@@ -31,7 +31,7 @@ public class BookerJob {
 	@Column
 	String gsm;
 	
-	@Column
+	@Column(length=8192)
 	String description;
 
 	@JsonIgnore

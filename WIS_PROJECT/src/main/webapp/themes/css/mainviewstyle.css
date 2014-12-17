@@ -77,6 +77,29 @@ SEARCH
 	margin-bottom: 5px;
 }
 
+
+.calendar-item{
+	margin-left: 10px;	
+	margin-bottom:5px;
+	margin-right:10px;
+}
+.calendar-item .title{
+	font-family: 'HelveticaNeue-Light', serif;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 24px;
+	color: #414848;
+	padding-top: 10px;
+	border-bottom: 1px solid #fff;
+}
+.calendar-item .short-description{
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-weight: 400;
+	font-size: 12px;
+	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
+
+}
+
 .results {
 	width: 230px;
 	position:relative;
@@ -310,5 +333,9 @@ OBJECT VIEW
 	.user-view .booker-profile .info .description{
 		height:400px;
 	}
+	.user-view .calendar .info .description{
+		height:400px;
+	}
+	
 
 

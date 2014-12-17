@@ -9,7 +9,7 @@ SELECTION STYLING
 	color: #fff;
 	background: #f676b2; /* Firefox */
 }
-a { color: inherit; } 
+a { color: inherit; text-decoration: none;} 
 
 /*******************
 BODY STYLING

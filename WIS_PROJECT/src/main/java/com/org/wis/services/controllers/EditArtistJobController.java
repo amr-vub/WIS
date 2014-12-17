@@ -58,25 +58,21 @@ public class EditArtistJobController {
 		
 	}
 	
-	@RequestMapping(value = "/artistjob/{artistjobid}/edit.do", method = RequestMethod.GET)
-	public String getArtistJobDetails(Model model, @ModelAttribute("id") String id, @PathVariable int artistjobid) {
+	@RequestMapping(value = "/artistjob/edit.do", method = RequestMethod.GET)
+	public String getArtistJobDetails(Model model, @ModelAttribute("id") int id) {
 		
-		if(id !=null){		//user logged in
-			ArtistJob aj = artistS.getArtistJobById(artistjobid);
-			if(aj != null){
-				model.addAttribute("artistjob", aj);
-				return "editartistjob";
-			}else return "redirect:/search.do";
-		}else return "redirect:/login.do";
+			User us = userS.getUserById(id);			
+			ArtistJob aj = artistS.getArtistJobById(us.getArtistJob().get(0).getArtistJobID());
+			model.addAttribute("artistjob", aj);
+			return "editartistjob";
 		
 	}
 	
-	@RequestMapping(value = "/artistjob/{artistjobid}/edit.do", method = RequestMethod.POST)
-	public String updateArtistJobDetails(@ModelAttribute("artistjob") ArtistJob updatedAJ, @ModelAttribute("id") String id, @PathVariable int artistjobid) throws Exception {
-		if(id !=null){		//user logged in
-			updatedAJ.setArtistJobID(artistjobid);
+	@RequestMapping(value = "/artistjob/edit.do", method = RequestMethod.POST)
+	public String updateArtistJobDetails(@ModelAttribute("artistjob") ArtistJob updatedAJ, @ModelAttribute("id") int id) throws Exception {		
+			User us = userS.getUserById(id);
+			updatedAJ.setArtistJobID(us.getArtistJob().get(0).getArtistJobID());
 			artistS.updateArtistJob(updatedAJ);
-		}
 		return "redirect:/mainview.do";
 	}
 	

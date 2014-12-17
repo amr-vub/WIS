@@ -52,7 +52,8 @@ public class userServiceImpl implements userService{
 	
 		User us = userM.getUserById(id);
 		
-		us.getUserEvent().isEmpty(); //fetch eager				
+		us.getUserEvent().isEmpty(); //fetch eager
+		us.getArtistJob().isEmpty();
 		
 		return us;
 	
@@ -67,6 +68,7 @@ public class userServiceImpl implements userService{
 		for (int i = 0; i < lis.size(); i++) {
 			lis.isEmpty();
 			lis.get(i).getArtUser().getUserEvent().isEmpty();
+			lis.get(i).getEvents().isEmpty();
 		}
 		List<ArtistJob> ajs = u.getArtistJob();
 		return ajs;

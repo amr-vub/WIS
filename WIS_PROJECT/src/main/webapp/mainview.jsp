@@ -12,7 +12,6 @@
 <script src="http://connect.soundcloud.com/sdk.js"></script>
 
 <script>
-var map;
 var brooklyn = new google.maps.LatLng(40.6743890, -73.9455);
 var MY_MAPTYPE_ID = 'custom_style';
 
@@ -88,7 +87,7 @@ function initialize() {
     mapTypeId: MY_MAPTYPE_ID
   };
 
-  map = new google.maps.Map(document.getElementById('map-canvas'),
+  window.map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
   var styledMapOptions = {
@@ -97,10 +96,8 @@ function initialize() {
 
   var customMapType = new google.maps.StyledMapType(featureOpts, styledMapOptions);
 
-  map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
+  window.map.mapTypes.set(MY_MAPTYPE_ID, customMapType);
 }
-
-google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 </head>
 
@@ -108,12 +105,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <body>
 	<div id="map-canvas"></div>
-	<div class="heading">ArtScout</div>
+	<div class="heading"><a href="${pageContext.request.contextPath}/mainview/home.do">ArtScout</a></div>
 
 	<div id="object-view-wrapper">
 
 		<script>
           $(document).ready(function(){
+        	  google.maps.event.addDomListener(window, 'load', initialize);
         	  $.get('${pageContext.request.contextPath}/mainview/event/checkViewType.do', function(check) {
               	check = JSON.parse(check);
               	eventView = check;
@@ -124,7 +122,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
               	}
               	else{
               		 $("#event-view").hide();
-              		$("#search-action").hide();
+              		 $("#search-action").hide();
                      $("#user-view").show();
               	}
               });
@@ -141,11 +139,26 @@ google.maps.event.addDomListener(window, 'load', initialize);
             $.get('${pageContext.request.contextPath}/mainview/user/getArtist.do', function(artists) {
             	artists = JSON.parse(artists);
             	if(typeof artists !== 'undefined' && artists.length > 0){
+            		//window.map.setCenter(new google.maps.LatLng(10,10));
     	        	document.getElementById("artist-name").innerHTML = artists[0].aliase;
     	        	document.getElementById("artist-description").innerHTML = artists[0].description;
     	        	$("#artist-add").hide();
     	        	document.getElementById("soundcloud-player").setAttribute("src", artists[0].sondCloudLink);
-            		
+    	        	
+    	        	var eventList = artists[0].events;
+    	        	resultHTML = '';
+    	        	for(i=0; i<eventList.length; i++){
+				           resultHTML += '<div class="calendar-item">';
+				           resultHTML += '<div class="title">';
+				           //resultHTML += '<a href="' + '${pageContext.request.contextPath}' + '/mainview/artist/' + results[i].artUser.userId + '.do ">'+results[i].aliase + '</a>';				         
+				           resultHTML += eventList[i].title;
+				           resultHTML += '</div>';
+				           resultHTML += '<div class="short-description">';
+				           resultHTML += eventList[i].eventStartDate;
+				           resultHTML += '</div>';
+				           resultHTML += '</div>';
+				         }    	        	
+    	        	document.getElementById("calendar-list").innerHTML = resultHTML;
             	} else{
             		$("#artist-job").hide();
 		            $("#artist-view").hide();
@@ -155,6 +168,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
             	bookers = JSON.parse(bookers);
             	if(typeof bookers !== 'undefined' && bookers.length > 0){
     	        	document.getElementById("booker-name").innerHTML = bookers[0].label;
+    	        	document.getElementById("booker-description").innerHTML = bookers[0].description;
     	        	$("#booker-add").hide();
             	}else{
             		$("#booker-job").hide();
@@ -186,29 +200,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					<img class="user-pic black-white" src="themes/images/ball2.png"
 						alt="Error loading event picture." width="80" height="80">
 				</div>
-				<div id="event-name" class="name panel">Some Event</div>
-				<div id="event-content" class="info panel">When you're scheduling a new Meetup
-					Event for your Meetup Group's calendar, you'll want to include
-					details about what your Meetup Group will be doing so everyone in
-					your Meetup Group will know what they can expect when they're
-					deciding whether or not to RSVP to that particular event.
-
-					Describing your Meetup is your chance to really convey just how
-					great your next Meetup is going to be. Some things you might want
-					to include: What will you be doing at your Meetup? What will it be
-					like? Will it be an activity? A discussion? A presentation? What's
-					an interesting issue we'll discuss? Who's presenting? What will
-					they present? Do members need to bring anything? Who should come?
-					Are newcomers welcome? Who shouldn't come? What should a newcomer
-					expect? Why should people come? How will members benefit from
-					coming to your Meetup? How long will the Meetup be? Is it okay to
-					arrive late? The more details you can provide, the more vivid the
-					image of the event will be in the reader's mind. That mental image
-					will entice them to attend. Don't worry: your description doesn't
-					need to be long -- just make sure you hit the basics. And as a
-					special bonus, your members will also see that you're an awesome,
-					excited Organizer because you put in the energy to write such a
-					thoughtful and detailed description.</div>
+				<div id="event-name" class="name panel">Event title</div>
+				<div id="event-content" class="info panel">Event description</div>
 			</div>
 		</div>
 
@@ -224,41 +217,48 @@ google.maps.event.addDomListener(window, 'load', initialize);
 						alt="Error loading profile picture." width="80" height="80">
 						</div>
 
-				<div id="user-name" class="name panel">Chris Clark</div>
+				<div id="user-name" class="name panel">Real name</div>
 			</div>
 
 			<div class ="job-list">
 				<script>
 				</script>
-				<!--<img id="calendar" class="job-icon button black-white" src="themes/images/calendaricon.png">-->
+				
+				<!-- Tab buttons -->
+				<img id="calendar" class="job-icon button black-white" src="themes/images/calendaricon.png">
 				<a href="/WIS_PROJECT/artistjob/add.do"><img id="artist-add" class="job-icon alt-button black-white" src="themes/images/musicicon.png" /></a> 
 				<a href="/WIS_PROJECT/bookerjob/add.do"><img id="booker-add" class="job-icon alt-button black-white" src="themes/images/bookicon.png" /></a>
 				<img id="artist-job" class="job-icon button black-white" src="themes/images/musicicon.png" /> 
 				<img id="booker-job" class="job-icon button black-white" src="themes/images/bookicon.png" />
+				
 				<script>
-		          $(document).ready(function(){
-		            $("#artist-view").show();
-		            $("#booker-view").hide();
-		
-		            $("#artist-job").click(function()
-		              {
-		              $("#artist-view").show();
-		              $("#booker-view").hide();
-		            });
-		          });
-		          $(document).ready(function(){
-		            $("#booker-job").click(function()
-		              {
-		              $("#artist-view").hide();
-		              $("#booker-view").show();
-		            });
-		          });
-		        </script>
+					$(document).ready(function() {
+						$("#artist-view").hide();
+						$("#booker-view").hide();
+						$("#calendar-view").show();
+
+						$("#artist-job").click(function() {
+							$("#artist-view").show();
+							$("#booker-view").hide();
+							$("#calendar-view").hide();
+						});
+						$("#booker-job").click(function() {
+							$("#artist-view").hide();
+							$("#booker-view").show();
+							$("#calendar-view").hide();
+						});
+						$("#calendar").click(function() {
+							$("#artist-view").hide();
+							$("#booker-view").hide();
+							$("#calendar-view").show();
+						});
+					});
+				</script>
 
 			</div>
 			<div id="artist-view" class="job-data artist-profile">
 				<div id="artist-edit" class="edit-button">
-					<a href="/WIS_PROJECT/artistjob/1/edit.do"><img
+					<a href="/WIS_PROJECT/artistjob/edit.do"><img
 						class="user-pic button" src="themes/images/editicon.png"
 						alt="Error loading profile picture." width="20" height="20"></a>
 				</div>
@@ -267,52 +267,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
 						alt="Error loading job picture." width="80" height="80">
 				</div>
 				<div class="info panel">
-					<div id="artist-name" class="name">Artist Alias</div>
-					<div id="artist-description" class="description">Clark's music is generally
-						considered to fall under the genre of electronic music, although
-						Clark himself finds this label ambiguous and describes Turning
-						Dragon as a "techno album".[18] He often experiments with forms of
-						degradation, distortion and decay associated with different
-						mediums, employing techniques such as re-recording samples and
-						field-recordings in different environments.[19] Describing such
-						processing, he has said "What I tend to do is just jam stuff
-						through as many boxes as I can, until everything sort of bleeds
-						into itself and all its surrounding parts".[20] Clark plays the
-						drums, and some of his material, especially Body Riddle features
-						recordings of his drumming, often heavily re-sampled.[21]
-						wfijewjiefwpjfe wefpjqwpifjqp wej jqwfepjiqwpfiejqpefwj Clark's
-						music is generally considered to fall under the genre of
-						electronic music, although Clark himself finds this label
-						ambiguous and describes Turning Dragon as a "techno album".[18] He
-						often experiments with forms of degradation, distortion and decay
-						associated with different mediums, employing techniques such as
-						re-recording samples and field-recordings in different
-						environments.[19] Describing such processing, he has said "What I
-						tend to do is just jam stuff through as many boxes as I can, until
-						everything sort of bleeds into itself and all its surrounding
-						parts".[20] Clark plays the drums, and some of his material,
-						especially Body Riddle features recordings of his drumming, often
-						heavily re-sampled.[21] wfijewjiefwpjfe wefpjqwpifjqp wej
-						jqwfepjiqwpfiejqpefwj Clark's music is generally considered to
-						fall under the genre of electronic music, although Clark himself
-						finds this label ambiguous and describes Turning Dragon as a
-						"techno album".[18] He often experiments with forms of
-						degradation, distortion and decay associated with different
-						mediums, employing techniques such as re-recording samples and
-						field-recordings in different environments.[19] Describing such
-						processing, he has said "What I tend to do is just jam stuff
-						through as many boxes as I can, until everything sort of bleeds
-						into itself and all its surrounding parts".[20] Clark plays the
-						drums, and some of his material, especially Body Riddle features
-						recordings of his drumming, often heavily re-sampled.[21]
-						wfijewjiefwpjfe wefpjqwpifjqp wej jqwfepjiqwpfiejqpefwj</div>
+					<div id="artist-name" class="name">Artist alias</div>
+					<div id="artist-description" class="description">Artist description</div>
 					<br />
 					<script>
 	  					SC.initialize({
 	  			 			client_id: 'cffc4fd2927c6518e338ac55965600fb'
 	  						});
-	
-	  						var track_url = 'http://soundcloud.com/throttleclark/winter-linn';
+	  						var track_url = '';
 	  						SC.oEmbed(track_url, { auto_play: true }, function(oEmbed) {
 	  				  		console.log('oEmbed response: ' + oEmbed);
 	  					});
@@ -323,9 +285,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			</div>
 
 			<div id="booker-view" class="job-data booker-profile">
-				<div class="edit-button">
+				<!-- <div class="edit-button">
 					<a href="/WIS_PROJECT/artistjob/1/edit.do"><img
 						class="user-pic button" src="themes/images/editicon.png"
+						alt="Error loading profile picture." width="20" height="20"></a>
+				</div>-->
+				<div class="edit-button">
+					<a href="/WIS_PROJECT/event/add.do"><img
+						class="button" src="themes/images/bookicon.png"
 						alt="Error loading profile picture." width="20" height="20"></a>
 				</div>
 				<div class="image">
@@ -333,40 +300,18 @@ google.maps.event.addDomListener(window, 'load', initialize);
 						alt="Error loading job picture." width="80" height="80">
 				</div>
 				<div class="info panel">
-					<div id="booker-name" class="name">Warp Records</div>
-					<div class="description">The first release (WAP1) was by
-						Forgemasters (produced by Robert Gordon), whose limited 500 copy
-						pressing of "Track With No Name" was financed by an Enterprise
-						Allowance grant and distributed in a borrowed car. It set a trend
-						for the early releases both in terms of sound, and the use of
-						purple sleeves (designed by The Designers Republic). The follow-up
-						was Nightmares on Wax's "Dextrous", which sold around 30,000
-						copies. This led to greater commercial success; by its fifth
-						release the label had its first Top 20 chart entry with LFO and
-						their eponymous single, "LFO", which sold 130,000 copies and
-						peaked at #12 in the UK Singles Chart in July 1990;[3] by
-						coincidence, that same month another Warp act, Tricky Disco,
-						reached #14 in the UK chart with another eponymous single, "Tricky
-						Disco".[4] Warp's third record, "Testone" (1990) by Sweet Exorcist
-						(Richard H. Kirk and Richard Barratt), defined Sheffield's bleep
-						techno sound, by making playful use of sampled sounds from Yellow
-						Magic Orchestra's "Computer Game" (1978) and the film Close
-						Encounters of the Third Kind (1977).[5] The first album released
-						was Sweet Exorcist's C.C.E.P. in 1991. In the same year Robert
-						Gordon left Warp acrimoniously. Warp went on to release a series
-						of singles and albums from 1992 under the Artificial Intelligence
-						heading, a series of experimental electronic music releases by
-						artists such as Aphex Twin (as Diceman and later Polygon Window),
-						Autechre, B12, the Black Dog, Richie Hawtin and Alex Paterson (of
-						The Orb). Initially all the album releases were gatefold sleeves
-						and coloured vinyl, often with covers by The Designers Republic or
-						Phil Wolstenholme. A VHS compilation of digitally animated music
-						videos called Motion was released in conjunction with the second
-						Artificial Intelligence compilation, and featured an early work by
-						director David Slade.</div>
-
+					<div id="booker-name" class="name">Booker label</div>
+					<div id="booker-description" class="description">Booker description</div>
 				</div>
 			</div>
+			
+			<div id="calendar-view" class="job-data calendar">
+				<div class="info panel">
+					<div id="calendar-title" class="name">Calendar</div>
+					<div id="calendar-list" class="description">Not subscribed to any events.</div>
+				</div>
+			</div>
+			
 		</div>
 
 	</div>

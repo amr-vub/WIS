@@ -32,10 +32,10 @@ public class ArtistJob {
 	@Column
 	String personalWebSite;
 	
-	@Column
+	@Column(length=8192)
 	String sondCloudLink;
 	
-	@Column
+	@Column(length=8192)
 	String description;
 	
 	@Column
@@ -50,8 +50,7 @@ public class ArtistJob {
 	
 	@ManyToOne @JoinColumn(nullable=false)	
 	Location artLocation;
-	
-	@JsonIgnore
+		
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="arts_Event")
 	List<Event> events = new ArrayList<Event>();
