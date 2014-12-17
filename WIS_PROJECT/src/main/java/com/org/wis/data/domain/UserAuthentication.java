@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 /*
  * 
  * Very simple naive way of user authentication
@@ -36,6 +38,7 @@ public class UserAuthentication {
 		this.username = username;
 	}
 
+	@JsonIgnore
 	@OneToOne @JoinColumn(nullable=false)
 	User user;		
 	

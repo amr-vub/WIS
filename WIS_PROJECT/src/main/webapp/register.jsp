@@ -35,6 +35,8 @@
     
 		<div class="content">
 			<form:input path="Email" type="email" name="email"  class="input" placeholder="E-mail address" spellcheck="false"/>
+			<form:input path ="fname" name="first-name" type="text" class="input" placeholder="First Name" spellcheck="false"/>
+    		<form:input path="lname" type="text" name="last-name"  class="input" placeholder="Last Name" spellcheck="false"/>
     		<form:input path ="UserAuthentication.Username" name="Username" type="text" class="input" placeholder="Username" spellcheck="false"/>
     		<form:input path="UserAuthentication.password" type="password" name="password"  class="input" placeholder="Password" spellcheck="false"/>
      	</div>

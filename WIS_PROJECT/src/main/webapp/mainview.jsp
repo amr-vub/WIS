@@ -114,23 +114,55 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 		<script>
           $(document).ready(function(){
-            $("#event-view").hide();
-            $("#user-view").show();
-            
+        	  $.get('${pageContext.request.contextPath}/mainview/event/checkViewType.do', function(check) {
+              	check = JSON.parse(check);
+              	if(check){
+                    $("#event-view").show();
+                    $("#user-view").hide();
+              	}
+              	else{
+              		 $("#event-view").hide();
+                     $("#user-view").show();
+              	}
+              });
+
             $.get('${pageContext.request.contextPath}/mainview/user/getUser.do', function(user) {
 	        	user = JSON.parse(user);
-	        	alert("hello");
-	        	document.getElementById("user-name").innerHTML = user.userName;
+	        	document.getElementById("user-name").innerHTML = user.fname + " " + user.lname;
             });
-            $.get('${pageContext.request.contextPath}/mainview/user/getArtist.do', function(artist) {
-            	artist = JSON.parse(artist);
-	        	alert(artist[0].aliase);
-	        	//document.getElementById("user-name").innerHTML = artist.userName;
+            $.get('${pageContext.request.contextPath}/mainview/user/getArtist.do', function(artists) {
+            	artists = JSON.parse(artists);
+            	if(typeof artists !== 'undefined' && artists.length > 0){
+    	        	document.getElementById("artist-name").innerHTML = artists[0].aliase;
+    	        	document.getElementById("artist-description").innerHTML = artists[0].description;
+    	        	$("#artist-add").hide();
+    	        	document.getElementById("soundcloud-player").setAttribute("src", artists[0].sondCloudLink);
+            		
+            	} else{
+            		$("#artist-job").hide();
+		            $("#artist-view").hide();
+            	}
             });
             $.get('${pageContext.request.contextPath}/mainview/user/getBooker.do', function(bookers) {
             	bookers = JSON.parse(bookers);
-	        	alert(bookers[0].label);
-	        	//document.getElementById("user-name").innerHTML = artist.userName;
+            	if(typeof bookers !== 'undefined' && bookers.length > 0){
+    	        	document.getElementById("booker-name").innerHTML = bookers[0].label;
+    	        	$("#booker-add").hide();
+            	}else{
+            		$("#booker-job").hide();
+		            $("#booker-view").hide();
+            	}
+            })
+            $.get('${pageContext.request.contextPath}/mainview/user/checkSelf.do', function(check) {
+            	check = JSON.parse(check);
+            	if(check){
+            		$("#artist-edit").show();   
+            		$("#user-edit").show(); 
+            	}
+            	else{
+            		$("#artist-edit").hide();
+            		$("#user-edit").hide(); 
+            	}
             });
           });
     	</script>
@@ -174,7 +206,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 		<div id="user-view" class="user-view">
 			<div class="general-data">
-				<div class="edit-button">
+				<div id="user-edit" class="edit-button">
 					<a href="/WIS_PROJECT/edituser.do"><img class="button"
 						src="themes/images/editicon.png"
 						alt="Error loading profile picture." width="20" height="20"></a>
@@ -185,11 +217,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
 						</div>
 
 				<div id="user-name" class="name panel">Chris Clark</div>
-			</div>
+			</div>
+
 			<div class ="job-list">
 				<script>
 				</script>
 				<!--<img id="calendar" class="job-icon button black-white" src="themes/images/calendaricon.png">-->
+				<a href="/WIS_PROJECT/artistjob/add.do"><img id="artist-add" class="job-icon alt-button black-white" src="themes/images/musicicon.png" /></a> 
+				<a href="/WIS_PROJECT/bookerjob/add.do"><img id="booker-add" class="job-icon alt-button black-white" src="themes/images/bookicon.png" /></a>
 				<img id="artist-job" class="job-icon button black-white" src="themes/images/musicicon.png" /> 
 				<img id="booker-job" class="job-icon button black-white" src="themes/images/bookicon.png" />
 				<script>
@@ -214,7 +249,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 			</div>
 			<div id="artist-view" class="job-data artist-profile">
-				<div class="edit-button">
+				<div id="artist-edit" class="edit-button">
 					<a href="/WIS_PROJECT/artistjob/1/edit.do"><img
 						class="user-pic button" src="themes/images/editicon.png"
 						alt="Error loading profile picture." width="20" height="20"></a>
@@ -224,8 +259,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 						alt="Error loading job picture." width="80" height="80">
 				</div>
 				<div class="info panel">
-					<div class="name">Artist Alias</div>
-					<div class="description">Clark's music is generally
+					<div id="artist-name" class="name">Artist Alias</div>
+					<div id="artist-description" class="description">Clark's music is generally
 						considered to fall under the genre of electronic music, although
 						Clark himself finds this label ambiguous and describes Turning
 						Dragon as a "techno album".[18] He often experiments with forms of
@@ -274,8 +309,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 	  				  		console.log('oEmbed response: ' + oEmbed);
 	  					});
   					</script>
-
-					<iframe scrolling="no" class="player" frameborder="no"
+					<iframe id="soundcloud-player" scrolling="no" class="player" frameborder="no"
 						src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/174101571&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
 				</div>
 			</div>
@@ -291,7 +325,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 						alt="Error loading job picture." width="80" height="80">
 				</div>
 				<div class="info panel">
-					<div class="name">Warp Records</div>
+					<div id="booker-name" class="name">Warp Records</div>
 					<div class="description">The first release (WAP1) was by
 						Forgemasters (produced by Robert Gordon), whose limited 500 copy
 						pressing of "Track With No Name" was financed by an Enterprise
@@ -340,7 +374,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					<option>Event</option>
 				</select> 
 				<input id="search-string" type="text" class="input" placeholder="Who are you looking for?"/> 
-				<input type="submit" name="submit" value="&#128269;" class="search-button button"/>
+				<input type="submit" name="submit" value="Search" class="search-button button"/>
 
 
 				<!--<input type="submit" name="submit" value="↓" class="advanced-button button" /> -->
@@ -354,41 +388,68 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			$(document).ready(function(){
 
 			    $('#search-form').submit(function(e) {
-			    	var searchtermArtist = document.getElementById("search-string").value;
+			    	 var searchterm = document.getElementById("search-string").value;
 				   	 var searchType = document.getElementById("search-type").value;
 				     var nbrResults = 5;
 			       
 			        //alert(searchType);
 			        if(searchType == "Artist"){
-				        $.get('${pageContext.request.contextPath}/search/artist/'+ nbrResults +'/'+ searchtermArtist +'.do', function(results) {
+				        $.get('${pageContext.request.contextPath}/search/artist/'+ nbrResults +'/'+ searchterm +'.do', function(results) {
 				        	results = JSON.parse(results); 
 					       	 var resultHTML = "";
+					       	if(results.length == 0){
+					       	   resultHTML += '<div class="result">';
+					           resultHTML += '<div class="title">';
+					           resultHTML += 'No matches foud.';
+					           resultHTML += '</div>';
+					           resultHTML += '</div>';
+					       	 }else{
+						         for(i=0; i<results.length; i++){
+						           resultHTML += '<div class="result">';
+						           resultHTML += '<div class="title">';
+						           resultHTML += '<a href="' + '${pageContext.request.contextPath}' + '/mainview/artist/' + results[i].artUser.userId + '.do ">'+results[i].aliase + '</a>';
+						           resultHTML += '</div>';
+						           resultHTML += '<div class="short-description">';
+						           resultHTML += results[i].artLocation.placeName;
+						           resultHTML += '</div>';
+						           resultHTML += '</div>';
+						         }
+					         }
+					         document.getElementById("results-insert").innerHTML = resultHTML;
+					         window.scrollTo(0,document.body.scrollHeight);
+				        });
+			        }
+			        if(searchType == "Booker"){
+				        $.get('${pageContext.request.contextPath}/search/booker/'+ nbrResults +'/'+ searchterm +'.do', function(results) {
+				        	results = JSON.parse(results); 
+				        	
+					       	 var resultHTML = "";
+					       	 
 					         for(i=0; i<results.length; i++){
 					           resultHTML += '<div class="result">';
 					           resultHTML += '<div class="title">';
-					           resultHTML += '<a href="' + '${pageContext.request.contextPath}' + '/mainview/user/' + results[i].artUser.userId + '.do ">'+results[i].aliase + '</a>';
+					           resultHTML += '<a href="' + '${pageContext.request.contextPath}' + '/mainview/booker/' + results[i].bookerUser.userId + '.do ">'+results[i].label + '</a>';
 					           resultHTML += '</div>';
 					           resultHTML += '<div class="short-description">';
-					           resultHTML += results[i].artLocation.placeName;
+					           resultHTML += results[i].bookerLocation.placeName;
 					           resultHTML += '</div>';
 					           resultHTML += '</div>';
 					         }
 					         document.getElementById("results-insert").innerHTML = resultHTML;
 				        });
 			        }
-			        if(searchType == "Booker"){
-				        $.get('${pageContext.request.contextPath}/search/booker/'+ nbrResults +'/'+ searchtermArtist +'.do', function(results) {
+			        if(searchType == "Event"){
+				        $.get('${pageContext.request.contextPath}/search/event/'+ nbrResults +'/'+ searchterm +'.do', function(results) {
 				        	results = JSON.parse(results); 
-				        	
 					       	 var resultHTML = "";
 					         for(i=0; i<results.length; i++){
 					           resultHTML += '<div class="result">';
 					           resultHTML += '<div class="title">';
-					           resultHTML += '<a href="' + '${pageContext.request.contextPath}' + '/search/user/' + results[i].artUser.userId + '.do ">'+results[i].label + '</a>';
+					           resultHTML += '<a href="' + '${pageContext.request.contextPath}' + '/mainview/event/' + results[i].eventID + '.do ">'+results[i].title + '</a>';
 					           resultHTML += '</div>';
-					           resultHTML += '<div class="short-description">';
-					           resultHTML += results[i].description;
-					           resultHTML += '</div>';
+					           //resultHTML += '<div class="short-description">';
+					           //resultHTML += results[i].bookerLocation.placeName;
+					           //resultHTML += '</div>';
 					           resultHTML += '</div>';
 					         }
 					         document.getElementById("results-insert").innerHTML = resultHTML;

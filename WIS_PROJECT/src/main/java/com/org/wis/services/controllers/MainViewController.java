@@ -18,7 +18,7 @@ import com.org.wis.data.domain.BookerJob;
 import com.org.wis.data.domain.User;
 import com.org.wis.services.service.userService;
 
-@SessionAttributes({"Id", "viewId"})
+@SessionAttributes({"id", "viewId","eventId", "viewevent"})
 @Controller
 public class MainViewController {
 
@@ -57,6 +57,16 @@ public class MainViewController {
 		return mapper.writeValueAsString(lis);
 	}
 	
+	@RequestMapping(value = "/mainview/artist/{userId}.do")
+	public String SetArtist(@ModelAttribute("viewId") int viewId,
+			@PathVariable int userId, Model model) throws Exception{
+					
+		model.addAttribute("viewId", userId);		
+		model.addAttribute("viewevent", false);
+		
+		return "redirect:/mainview.do";
+	}
+	
 	@RequestMapping(value = "/mainview/user/getBooker.do")
 	public @ResponseBody String getBooker(@ModelAttribute("viewId") int viewId
 			) throws Exception{
@@ -64,6 +74,39 @@ public class MainViewController {
 		List<BookerJob> lis = userservice.getUserBookerJob(viewId);
 		
 		return mapper.writeValueAsString(lis);
+	}
+	
+	@RequestMapping(value = "/mainview/booker/{userId}.do")
+	public String SetBooker(@ModelAttribute("viewId") int viewId,
+			@PathVariable int userId, Model model) throws Exception{
+					
+		model.addAttribute("viewId", userId);			
+		model.addAttribute("viewevent", false);
+		
+		return "redirect:/mainview.do";
+	}
+	
+	@RequestMapping(value = "/mainview/user/checkSelf.do")
+	public @ResponseBody String checkSelf(@ModelAttribute("viewId") int viewId, @ModelAttribute("id") int id
+			) throws Exception{
+								
+		return mapper.writeValueAsString(viewId == id);
+	}
+	
+	@RequestMapping(value = "/mainview/event/{eventId}.do")
+	public String SetEvent(@ModelAttribute("viewId") int viewId,
+			@PathVariable int eventId, Model model) throws Exception{
+					
+		model.addAttribute("eventId", eventId);
+		model.addAttribute("viewevent", true);		
+		
+		return "redirect:/mainview.do";
+	}
+	
+	@RequestMapping(value = "/mainview/event/checkViewType.do")
+	public @ResponseBody String checkViewType(@ModelAttribute("viewevent") boolean viewevent) throws Exception{
+								
+		return mapper.writeValueAsString(viewevent);
 	}
 	
 }

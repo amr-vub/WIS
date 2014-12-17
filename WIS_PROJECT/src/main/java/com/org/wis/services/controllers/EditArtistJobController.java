@@ -42,7 +42,7 @@ public class EditArtistJobController {
 		
 		artistS.addArtistJob(id, newAJ);
 		
-		return "redirect:/search.do";
+		return "redirect:/mainview.do";
 	}
 	
 	@RequestMapping(value = "/artistjob/add.do", method = RequestMethod.GET)
@@ -77,7 +77,7 @@ public class EditArtistJobController {
 			updatedAJ.setArtistJobID(artistjobid);
 			artistS.updateArtistJob(updatedAJ);
 		}
-		return "redirect:/search.do";
+		return "redirect:/mainview.do";
 	}
 	
 	@RequestMapping(value = "/artistjob/{artistjobid}/delete.do", method = RequestMethod.POST)

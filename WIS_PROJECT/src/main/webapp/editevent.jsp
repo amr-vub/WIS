@@ -34,7 +34,7 @@
     
 		<div class="content">
 			<form:input path="title" name="event-title" type="text" class="input username" placeholder="Title" spellcheck="false"/>
-            <form:textarea path="description" form="login-form" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
+            <form:textarea path="description" name="description" cols="35" wrap="soft" class="input input-textarea" placeholder="Description"/>
             <p id="datetime-inputs">
             <form:input path="eventStartDate" type="text" class="date start input" placeholder="Date"/>
             <form:input path="eventStartTime" type="text" class="time start input" placeholder="Time"/> to

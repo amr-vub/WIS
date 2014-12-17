@@ -41,7 +41,7 @@ public class EditBookerJobController {
 		
 		bookerS.addBookerJob(id, newBJ);
 		
-		return "redirect:/search.do";
+		return "redirect:/mainview.do";
 	}
 	
 	@RequestMapping(value = "/bookerjob/add.do", method = RequestMethod.GET)
@@ -77,7 +77,7 @@ public class EditBookerJobController {
 			updatedBJ.setBookerJob(bookerjobid);
 			bookerS.updateBookerJob(updatedBJ);
 		}
-		return "redirect:/search.do";
+		return "redirect:/mainview.do";
 	}
 	
 	@RequestMapping(value = "/bookerjob/{bookerjobid}/delete.do", method = RequestMethod.POST)

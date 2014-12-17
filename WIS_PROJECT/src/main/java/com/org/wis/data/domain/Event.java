@@ -33,11 +33,11 @@ public class Event {
 	@Column @Temporal(value = TemporalType.DATE)
 	Date eventEndDate;
 	
-	@Column @Temporal(value = TemporalType.TIME)
-	Date eventStartTime;
+	@Column
+	String eventStartTime;
 	
-	@Column @Temporal(value = TemporalType.TIME)
-	Date eventEndTime;
+	@Column
+	String eventEndTime;
 	
 	@Column
 	String description;
@@ -58,7 +58,6 @@ public class Event {
 	@ManyToOne @JoinColumn(nullable=true)
 	Location eventLocation;
 	
-	@Column
 	@OneToOne(cascade = CascadeType.ALL, mappedBy="brEvent")
 	BookingRequest brEvent;
 	
@@ -136,19 +135,19 @@ public class Event {
 		this.eventEndDate = eventEndDate;
 	}
 
-	public Date getEventStartTime() {
+	public String getEventStartTime() {
 		return eventStartTime;
 	}
 
-	public void setEventStartTime(Date eventStartTime) {
+	public void setEventStartTime(String eventStartTime) {
 		this.eventStartTime = eventStartTime;
 	}
 
-	public Date getEventEndTime() {
+	public String getEventEndTime() {
 		return eventEndTime;
 	}
 
-	public void setEventEndTime(Date eventEndTime) {
+	public void setEventEndTime(String eventEndTime) {
 		this.eventEndTime = eventEndTime;
 	}
 

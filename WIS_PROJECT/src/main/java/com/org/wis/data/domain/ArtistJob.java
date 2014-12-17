@@ -56,7 +56,6 @@ public class ArtistJob {
 	@JoinTable(name="arts_Event")
 	List<Event> events = new ArrayList<Event>();
 	
-	@Column
 	@OneToOne(cascade = CascadeType.ALL, mappedBy="brArtistJob")
 	BookingRequest brArtist;
 	

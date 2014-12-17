@@ -46,7 +46,6 @@ public class BookerJob {
 	@ManyToOne @JoinColumn(nullable=false)	
 	Location bookerLocation;
 	
-	@Column
 	@OneToOne(cascade = CascadeType.ALL, mappedBy="brBooker")
 	BookingRequest brBooker;
 	

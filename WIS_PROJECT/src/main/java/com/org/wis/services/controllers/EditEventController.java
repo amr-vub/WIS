@@ -42,7 +42,7 @@ public class EditEventController {
 		
 		eventS.saveEvent(event);
 		
-		return "redirect:/search.do";
+		return "redirect:/mainview.do";
 	}
 	
 	@RequestMapping(value = "/event/add.do", method = RequestMethod.GET)
@@ -62,7 +62,7 @@ public class EditEventController {
 			if(ev != null){
 				model.addAttribute("event", ev);
 				return "editevent";
-			}else return "redirect:/search.do";
+			}else return "redirect:/mainview.do";
 		}else return "redirect:/login.do";
 		
 	}
@@ -73,7 +73,7 @@ public class EditEventController {
 		updatedEv.setEventID(eventid);
 		eventS.updateEvent(updatedEv);
 		
-		return "redirect:/search.do";
+		return "redirect:/mainview.do";
 	}
 	
 	@RequestMapping(value = "/event/{eventid}/delete.do", method = RequestMethod.GET)

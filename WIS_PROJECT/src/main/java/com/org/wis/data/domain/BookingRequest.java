@@ -18,17 +18,14 @@ public class BookingRequest {
 	int bookingRequestId;
 	
 	@JsonIgnore
-	@Column
 	@OneToOne @JoinColumn(nullable=false)
 	ArtistJob brArtistJob;
 	
 	@JsonIgnore
-	@Column
 	@OneToOne @JoinColumn(nullable=false)
 	Event brEvent;
 	
 	@JsonIgnore
-	@Column
 	@OneToOne @JoinColumn(nullable=false)
 	BookerJob brBooker;
 

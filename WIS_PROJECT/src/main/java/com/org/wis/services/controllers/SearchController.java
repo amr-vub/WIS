@@ -153,11 +153,4 @@ public class SearchController {
 		return mapper.writeValueAsString("ok");
 	}
 	
-	@RequestMapping(value = "/search/bookartist/{bid}/{aid}/{eid}.do")
-	public @ResponseBody String sendBookingRequest(@ModelAttribute("id") int id, 
-			@PathVariable int bid, @PathVariable int aid, @PathVariable int eid) throws Exception {
-		
-		
-		return mapper.writeValueAsString("ok");
-	}
 }
