@@ -197,7 +197,7 @@ function initialize() {
 						alt="Error loading profile picture." width="20" height="20"></a>
 				</div>
 				<div class="image">
-					<img class="user-pic black-white" src="themes/images/ball2.png"
+					<img class="user-pic black-white" src="themes/images/profile-pic.jpg"
 						alt="Error loading event picture." width="80" height="80">
 				</div>
 				<div id="event-name" class="name panel">Event title</div>
@@ -213,7 +213,7 @@ function initialize() {
 						alt="Error loading profile picture." width="20" height="20"></a>
 				</div>
 				<div class="image">
-					<img class="user-pic black-white" src="themes/images/clark"
+					<img class="user-pic black-white" src="themes/images/profile-pic.jpg"
 						alt="Error loading profile picture." width="80" height="80">
 						</div>
 
@@ -263,7 +263,7 @@ function initialize() {
 						alt="Error loading profile picture." width="20" height="20"></a>
 				</div>
 				<div class="image">
-					<img class="job-pic" src="themes/images/ball2.png"
+					<img class="job-pic" src="themes/images/profile-pic.jpg"
 						alt="Error loading job picture." width="80" height="80">
 				</div>
 				<div class="info panel">
@@ -296,7 +296,7 @@ function initialize() {
 						alt="Error loading profile picture." width="20" height="20"></a>
 				</div>
 				<div class="image">
-					<img class="job-pic" src="themes/images/ball.png"
+					<img class="job-pic" src="themes/images/profile-pic.jpg"
 						alt="Error loading job picture." width="80" height="80">
 				</div>
 				<div class="info panel">
