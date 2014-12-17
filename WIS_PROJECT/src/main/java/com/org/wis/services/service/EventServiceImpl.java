@@ -9,10 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.org.wis.data.dao.IArtistJobManager;
 import com.org.wis.data.dao.IBookerJobManager;
 import com.org.wis.data.dao.IEventManager;
+import com.org.wis.data.dao.ILocationManager;
 import com.org.wis.data.dao.IUserManager;
 import com.org.wis.data.domain.ArtistJob;
 import com.org.wis.data.domain.BookerJob;
 import com.org.wis.data.domain.Event;
+import com.org.wis.data.domain.Location;
 
 
 
@@ -30,6 +32,9 @@ public class EventServiceImpl implements EventService {
 	
 	@Autowired
 	IArtistJobManager artistM;
+	
+	@Autowired
+	ILocationManager locServce;
 
 	@Transactional(readOnly = true)
 	public Event findEventById(int EventID) {
@@ -39,6 +44,11 @@ public class EventServiceImpl implements EventService {
 
 	@Transactional
 	public void saveEvent(Event event) {
+		Location loc = event.getEventLocation();
+		
+		loc.getPlaces().add(event);
+		
+		locServce.saveLocation(loc);			
 		
 		eventM.saveEvent(event);
 		

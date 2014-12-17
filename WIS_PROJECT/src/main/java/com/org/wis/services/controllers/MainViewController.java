@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.org.wis.data.domain.ArtistJob;
 import com.org.wis.data.domain.BookerJob;
+import com.org.wis.data.domain.Event;
 import com.org.wis.data.domain.User;
+import com.org.wis.services.service.EventService;
 import com.org.wis.services.service.userService;
 
 @SessionAttributes({"id", "viewId","eventId", "viewevent"})
@@ -27,6 +29,9 @@ public class MainViewController {
 	
 	@Autowired
 	userService userservice;
+	
+	@Autowired
+	EventService eventService;
 	
 	public MainViewController(){
 		mapper = new ObjectMapper();
@@ -91,6 +96,14 @@ public class MainViewController {
 			) throws Exception{
 								
 		return mapper.writeValueAsString(viewId == id);
+	}
+	
+	@RequestMapping(value = "/mainview/event/getEvent.do")
+	public @ResponseBody String getEvent(@ModelAttribute("eventId") int eventId) throws Exception{
+					
+		Event lis = eventService.getEventById(eventId);
+		
+		return mapper.writeValueAsString(lis);
 	}
 	
 	@RequestMapping(value = "/mainview/event/{eventId}.do")

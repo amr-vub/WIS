@@ -71,17 +71,17 @@ SEARCH
 .search-form .basic .wide {
 	
 	padding: 5px 5px 5px 5px;
-	font-size: 10px;
+	font-size: 16px;
 	width: 300px;
 	height: 30px;
 	margin-bottom: 5px;
 }
 
 .results {
-	width: 190px;
+	width: 230px;
 	position:relative;
 	top: -5px;
-	left:50px;
+	left:21px;
 	margin-bottom:50px;
 	border-bottom-right-radius: 5px;
 	border-bottom-left-radius: 5px;
@@ -94,6 +94,7 @@ SEARCH
 .result{
 	margin-left: 10px;	
 	margin-bottom:5px;
+	margin-right:10px;
 }
 .result .title{
 	font-family: 'HelveticaNeue-Light', serif;
@@ -110,10 +111,6 @@ SEARCH
 	font-size: 12px;
 	text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
 
-	border-radius: 5px;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 
 /*

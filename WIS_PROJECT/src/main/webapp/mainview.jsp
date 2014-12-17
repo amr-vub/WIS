@@ -424,7 +424,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 				        	results = JSON.parse(results); 
 				        	
 					       	 var resultHTML = "";
-					       	 
+					       	if(results.length == 0){
+						       	   resultHTML += '<div class="result">';
+						           resultHTML += '<div class="title">';
+						           resultHTML += 'No matches foud.';
+						           resultHTML += '</div>';
+						           resultHTML += '</div>';
+						       	 }else{
 					         for(i=0; i<results.length; i++){
 					           resultHTML += '<div class="result">';
 					           resultHTML += '<div class="title">';
@@ -434,14 +440,22 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					           resultHTML += results[i].bookerLocation.placeName;
 					           resultHTML += '</div>';
 					           resultHTML += '</div>';
-					         }
+					         }}
 					         document.getElementById("results-insert").innerHTML = resultHTML;
+					         window.scrollTo(0,document.body.scrollHeight);
 				        });
 			        }
 			        if(searchType == "Event"){
 				        $.get('${pageContext.request.contextPath}/search/event/'+ nbrResults +'/'+ searchterm +'.do', function(results) {
 				        	results = JSON.parse(results); 
 					       	 var resultHTML = "";
+					       	if(results.length == 0){
+						       	   resultHTML += '<div class="result">';
+						           resultHTML += '<div class="title">';
+						           resultHTML += 'No matches foud.';
+						           resultHTML += '</div>';
+						           resultHTML += '</div>';
+						       	 }else{
 					         for(i=0; i<results.length; i++){
 					           resultHTML += '<div class="result">';
 					           resultHTML += '<div class="title">';
@@ -451,8 +465,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					           //resultHTML += results[i].bookerLocation.placeName;
 					           //resultHTML += '</div>';
 					           resultHTML += '</div>';
-					         }
+					         }}
 					         document.getElementById("results-insert").innerHTML = resultHTML;
+					         window.scrollTo(0,document.body.scrollHeight);
 				        });
 			        }
 			        
