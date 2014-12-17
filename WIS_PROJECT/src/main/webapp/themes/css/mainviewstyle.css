@@ -71,8 +71,8 @@ SEARCH
 .search-form .basic .wide {
 	
 	padding: 5px 5px 5px 5px;
-	font-size: 16px;
-	width: 300px;
+	font-size: 14px;
+	width: 136px;
 	height: 30px;
 	margin-bottom: 5px;
 }
@@ -175,7 +175,8 @@ OBJECT VIEW
 		font-weight: 400;
 		font-size: 12px;
 		text-shadow: 1px 1px 0 rgba(256,256,256,1.0);
-
+		height:420px;
+		overflow-y:scroll;
 		border-radius: 5px;
 		box-shadow: 0 1px 3px rgba(0,0,0,0.5);
 		-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);

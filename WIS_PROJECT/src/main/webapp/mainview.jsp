@@ -116,16 +116,24 @@ google.maps.event.addDomListener(window, 'load', initialize);
           $(document).ready(function(){
         	  $.get('${pageContext.request.contextPath}/mainview/event/checkViewType.do', function(check) {
               	check = JSON.parse(check);
+              	eventView = check;
               	if(check){
                     $("#event-view").show();
                     $("#user-view").hide();
+                    $("#search-action").show();
               	}
               	else{
               		 $("#event-view").hide();
+              		$("#search-action").hide();
                      $("#user-view").show();
               	}
               });
 
+       	 	 $.get('${pageContext.request.contextPath}/mainview/event/getEvent.do', function(event) {
+ 	        	event = JSON.parse(event);
+ 	        	document.getElementById("event-name").innerHTML = event.title;
+ 	        	document.getElementById("event-content").innerHTML = event.description;
+             });
             $.get('${pageContext.request.contextPath}/mainview/user/getUser.do', function(user) {
 	        	user = JSON.parse(user);
 	        	document.getElementById("user-name").innerHTML = user.fname + " " + user.lname;
@@ -178,8 +186,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 					<img class="user-pic black-white" src="themes/images/ball2.png"
 						alt="Error loading event picture." width="80" height="80">
 				</div>
-				<div class="name panel">Some Event</div>
-				<div class="info panel">When you're scheduling a new Meetup
+				<div id="event-name" class="name panel">Some Event</div>
+				<div id="event-content" class="info panel">When you're scheduling a new Meetup
 					Event for your Meetup Group's calendar, you'll want to include
 					details about what your Meetup Group will be doing so everyone in
 					your Meetup Group will know what they can expect when they're
@@ -368,10 +376,15 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		<form id="search-form" name="search-form" class="search-form panel">
 			<div class="search-type"></div>
 			<div class="basic">
+				
 				<select id="search-type" class="input wide">
 					<option>Artist</option>
 					<option>Booker</option>
 					<option>Event</option>
+				</select> 
+				<select id="search-action" class="input wide">
+					<option>Search</option>
+					<option>Book</option>
 				</select> 
 				<input id="search-string" type="text" class="input" placeholder="Who are you looking for?"/> 
 				<input type="submit" name="submit" value="Search" class="search-button button"/>
@@ -385,6 +398,14 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			<p id="results-insert"></p>
 			
 			<script>
+			document.getElementById("search-type").onchange = function(){
+				if(document.getElementById("search-type").value=="Artist"){
+					document.getElementById("search-action").disabled = false;
+				}else{
+					document.getElementById("search-action").value="Search";
+					document.getElementById("search-action").disabled = true;
+				}
+			}
 			$(document).ready(function(){
 
 			    $('#search-form').submit(function(e) {
