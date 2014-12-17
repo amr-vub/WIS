@@ -28,7 +28,7 @@ import com.org.wis.services.service.EventService;
 import com.org.wis.services.service.SearchService;
 import com.org.wis.services.service.userService;
 
-@SessionAttributes("id")
+@SessionAttributes({"id", "eventId"})
 @Controller
 public class SearchController {	
 	
@@ -138,11 +138,22 @@ public class SearchController {
 	}
 	
 
-	@RequestMapping(value = "/search/subscribeartist/{aid}/{eid}.do")
-	public @ResponseBody String subscribeArtist(@ModelAttribute("id") int uid, 
-			@PathVariable int aid, @PathVariable int eid) throws Exception {
-		eventS.addArtistToEvent(aid, eid);
-		return mapper.writeValueAsString("ok");
+	@RequestMapping(value = "/search/subscribeartist/{aid}.do")
+	public String subscribeArtist(@ModelAttribute("id") int uid, 
+			@PathVariable int aid, @ModelAttribute("eventId") int eventId) throws Exception {
+		eventS.addArtistToEvent(aid, eventId);
+		return "redirect:/booked.do";
+	}
+	
+	@RequestMapping(value = "/booked.do")
+	public String booked() throws Exception {
+		
+		return "booksucces";
+	}
+	@RequestMapping(value = "/bookedOk.do")
+	public String bookedOk() throws Exception {
+		
+		return "redirect:/mainview.do";
 	}
 	
 	@RequestMapping(value = "/search/subscribebooker/{bid}/{eid}.do")

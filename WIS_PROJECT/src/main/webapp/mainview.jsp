@@ -411,6 +411,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 			    $('#search-form').submit(function(e) {
 			    	 var searchterm = document.getElementById("search-string").value;
 				   	 var searchType = document.getElementById("search-type").value;
+				   	 var searchAction = document.getElementById("search-action").value;
 				     var nbrResults = 5;
 			       
 			        //alert(searchType);
@@ -428,7 +429,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
 						         for(i=0; i<results.length; i++){
 						           resultHTML += '<div class="result">';
 						           resultHTML += '<div class="title">';
-						           resultHTML += '<a href="' + '${pageContext.request.contextPath}' + '/mainview/artist/' + results[i].artUser.userId + '.do ">'+results[i].aliase + '</a>';
+						           if(searchAction == "Search"){
+						        	   resultHTML += '<a href="' + '${pageContext.request.contextPath}' + '/mainview/artist/' + results[i].artUser.userId + '.do ">'+results[i].aliase + '</a>';   
+						           }else{
+						        	   resultHTML += '<a href="' + '${pageContext.request.contextPath}' + '/search/subscribeartist/' + results[i].artistJobID + '.do ">'+results[i].aliase + '</a>';   
+						           }
 						           resultHTML += '</div>';
 						           resultHTML += '<div class="short-description">';
 						           resultHTML += results[i].artLocation.placeName;
