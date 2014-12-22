@@ -292,6 +292,12 @@ OBJECT VIEW
 		top: -15px;
 		z-index: 3;
 	}
+	.user-view .job-data .action-button-1 {
+		position:absolute;
+		left: -130px;
+		top: 23px;
+		z-index: 3;
+	}
 	.user-view .job-data .image .job-pic {
 		border-radius: 5px;
 		box-shadow: 0 1px 3px rgba(0,0,0,0.5);

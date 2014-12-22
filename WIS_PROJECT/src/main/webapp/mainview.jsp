@@ -285,12 +285,12 @@ function initialize() {
 			</div>
 
 			<div id="booker-view" class="job-data booker-profile">
-				<!-- <div class="edit-button">
-					<a href="/WIS_PROJECT/artistjob/1/edit.do"><img
+				<div class="edit-button">
+					<a href="/WIS_PROJECT/bookerjob/edit.do"><img
 						class="user-pic button" src="themes/images/editicon.png"
 						alt="Error loading profile picture." width="20" height="20"></a>
-				</div>-->
-				<div class="edit-button">
+				</div>
+				<div class="action-button-1">
 					<a href="/WIS_PROJECT/event/add.do"><img
 						class="button" src="themes/images/bookicon.png"
 						alt="Error loading profile picture." width="20" height="20"></a>
